@@ -1,0 +1,9 @@
+export const INCREMENT = "INCREMENT";
+export const TOGGLE_AUTH = "TOGGLE_AUTH";
+export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
+export const LOG_ERRORS = "LOG_ERRORS";
+export const SET_LOADING = "SET_LOADING";
+export const SET_SAVING = "SET_SAVING";
+export const SET_MESSAGE = "SET_MESSAGE";
+export const RESET_STATE = "RESET_STATE";
