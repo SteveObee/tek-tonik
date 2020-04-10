@@ -12,7 +12,7 @@ class User extends Authenticatable
 
   public function addresses()
   {
-    return $this->belongsToMany('App\Address', 'customer_addresses', 'user_id', 'address_id');
+    return $this->belongsToMany('App\Address', 'customer_addresses', 'user_id', 'address_id')->using('App\CustomerAddress')->withPivot(['user_id', 'address_id', 'ref_address_type_id']);
   }
 
   /**

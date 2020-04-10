@@ -15,6 +15,6 @@ class Address extends Model
 
   public function users()
   {
-    return $this->belongsToMany('App\User', 'customer_addresses', 'address_id', 'user_id');
+    return $this->belongsToMany('App\User', 'customer_addresses', 'address_id', 'user_id')->using('App\CustomerAddress')->withPivot(['address_id', 'user_id', 'ref_address_type_id']);
   }
 }
