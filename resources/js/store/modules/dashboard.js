@@ -1,17 +1,15 @@
-import { increment, toggleAuth } from "../actions/dashboard";
-import { INCREMENT, TOGGLE_AUTH } from "../mutations/dashboard";
+import { increment } from "../actions/dashboard";
+import { INCREMENT } from "../mutations/dashboard";
 
 const state = {
-  count: 5,
-  isAuthenticated: false
+  count: 5
 };
 
 const mutations = {
-  INCREMENT,
-  TOGGLE_AUTH
+  INCREMENT
 };
 
-const actions = { increment, toggleAuth };
+const actions = { increment };
 
 export default {
   state,
