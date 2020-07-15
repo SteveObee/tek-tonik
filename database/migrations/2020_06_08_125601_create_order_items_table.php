@@ -17,7 +17,6 @@ class CreateOrderItemsTable extends Migration {
 			$table->integer('id', true);
 			$table->timestamps();
 			$table->integer('orders_id')->index('fk_order_items_orders1_idx');
-			$table->integer('products_id')->index('fk_order_items_products1_idx');
 			$table->integer('ref_order_item_status_codes_id')->index('fk_order_items_ref_order_item_status_codes1_idx');
 		});
 	}

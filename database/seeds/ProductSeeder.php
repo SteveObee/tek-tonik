@@ -15,9 +15,9 @@ class ProductSeeder extends Seeder
     $dateNow = Carbon::now();
 
     # 5 phones for brand 1
-    for ($i = 1; $i <= 5; $i++) {
+    for ($productCount = 1; $productCount <= 5; $productCount++) {
       $randomDigit = rand(1, 9);
-      $year = $i + 4;
+      $year = $productCount + 4;
 
       $date = "201{$year}-0{$randomDigit}-01 00:00:00";
 
@@ -25,18 +25,32 @@ class ProductSeeder extends Seeder
         'name' => 'Atomic',
         'supplier_id' => 1,
         'brand_id' => 1,
-        'model' => "A{$i}000",
+        'model' => "A{$productCount}000",
         'created_at' => $date,
         'updated_at' => $date
       ]);
 
-      for ($y = 1; $y <= $randomDigit; $y++) {
+      for ($optionCount = 1; $optionCount <= $randomDigit; $optionCount++) {
         $product->options()->attach(
           1,
           [
-            'option_value_id' => $y
+            'option_value_id' => $optionCount
           ]
         );
+      }
+
+      factory(App\Image::class)->create([
+        'product_id' => $product->id,
+        'sort_order' => 1,
+        'url' => "http://localhost:3002/storage/sm-mock_400x400.jpg"
+      ]);
+
+      for ($imgCount = 2; $imgCount <= 8; $imgCount++) {
+        factory(App\Image::class)->create([
+          'product_id' => $product->id,
+          'sort_order' => $imgCount,
+          'url' => "https://source.unsplash.com/random/40{$imgCount}x40{$imgCount}"
+        ]);
       }
     }
   }

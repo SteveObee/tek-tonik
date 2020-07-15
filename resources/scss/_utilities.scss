@@ -10,6 +10,31 @@
   color: $primary-color;
 }
 
+.c-success {
+  color: $success-color;
+}
+
+.c-warning {
+  color: $warning-color;
+}
+
+.c-danger {
+  color: lighten($danger-color, 10);
+}
+
+.c-price {
+  color: #e69833;
+}
+
+// Fonts
+br {
+  font-size: 1rem;
+}
+
+.sm {
+  font-size: small;
+}
+
 // Links
 a {
   cursor: pointer;
@@ -59,10 +84,32 @@ a {
     background-color: $primary-color;
   }
 
+  &-success {
+    @extend %btn-shared;
+    color: #f4f4f4;
+    background-color: $success-color;
+  }
+
   &-danger {
     @extend %btn-shared;
     color: #f4f4f4;
     background-color: $danger-color;
+  }
+
+  &-basket {
+    @extend %btn-shared;
+    color: #333;
+    background-color: lighten($success-color, 20);
+    padding: 0.5rem 0;
+    transition: all 0s;
+  }
+
+  &-basket-danger {
+    @extend %btn-shared;
+    color: #fff;
+    background-color: lighten($danger-color, 10);
+    padding: 0.2rem 0.5rem;
+    transition: all 0s;
   }
 }
 
@@ -208,7 +255,6 @@ input[class^="btn-"]:hover {
 .section-title {
   font-size: 2rem;
   display: block;
-  padding-bottom: 2rem;
   text-align: center;
   font-weight: 300;
   text-transform: uppercase;

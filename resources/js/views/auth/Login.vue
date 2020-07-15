@@ -68,6 +68,7 @@ export default {
 
       if (!this.errors) {
         await store.dispatch("loadUser");
+        await store.dispatch("getBasket", this.$store.state.auth.user.id);
 
         this.$router.push({
           name: "dashboard.profile"

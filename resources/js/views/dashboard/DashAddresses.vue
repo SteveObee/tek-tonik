@@ -166,7 +166,7 @@ export default {
       next();
     } catch (e) {
       next({
-        name: "dashboard"
+        name: "dashboard.profile"
       });
     }
   },

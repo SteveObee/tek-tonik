@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <div class="my-2">
-      <div v-if="user && auth">
-        <StatusBar v-bind:name="user.name" />
+      <div>
+        <StatusBar />
+      </div>
+      <div>
         <Navbar />
       </div>
       <div class="my-2">
@@ -28,12 +30,11 @@ export default {
   computed: {
     ...mapState({
       auth: state => state.auth.isAuthenticated,
-      user: state => state.auth.user,
       loading: state => state.auth.loading
     })
   },
   methods: {
-    ...mapActions(["loadUser"])
+    ...mapActions(["loadUser", "getBasket"])
   }
 };
 </script>

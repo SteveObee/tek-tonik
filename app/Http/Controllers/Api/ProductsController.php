@@ -18,9 +18,15 @@ class ProductsController extends Controller
 
   public function show(Product $product)
   {
-    $product->options;
+    $product->colors;
+    $product->brand;
 
     return new ProductResource($product);
+  }
+
+  public function productImages(Product $product)
+  {
+    return ProductResource::collection($product->images()->simplePaginate(3));
   }
 
   public function destroy(Product $product)

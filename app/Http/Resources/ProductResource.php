@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Image;
 use App\OptionValue;
 
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,8 +17,6 @@ class ProductResource extends JsonResource
    */
   public function toArray($request)
   {
-    return parent::toArray($request, [
-      // 'options' => OptionResource::collection($this->options)
-    ]);
+    return parent::toArray($request);
   }
 }

@@ -2,12 +2,20 @@ import api from "../../api/address";
 import { GET_ADDRESSES, LOG_ERRORS, SET_MESSAGE, SET_SAVING } from "./types";
 
 export const getUserAddresses = async ({ commit }, page) => {
-  console.log(page);
-
   const params = page;
 
   try {
     const res = await api.user({ params });
+
+    commit({ type: GET_ADDRESSES, data: res.data });
+  } catch (err) {
+    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+  }
+};
+
+export const getAllUserAddresses = async ({ commit }) => {
+  try {
+    const res = await api.all();
 
     commit({ type: GET_ADDRESSES, data: res.data });
   } catch (err) {

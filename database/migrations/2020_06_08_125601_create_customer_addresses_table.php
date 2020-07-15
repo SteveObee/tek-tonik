@@ -16,8 +16,8 @@ class CreateCustomerAddressesTable extends Migration
     Schema::create('customer_addresses', function (Blueprint $table) {
       $table->integer('address_id')->index('fk_customer_addresses_addresses1_idx');
       $table->bigInteger('user_id')->index('fk_customer_addresses_users1_idx');
-      $table->boolean('is_shipping')->nullable()->default(0);
-      $table->boolean('is_billing')->nullable()->default(0);
+      $table->boolean('is_shipping')->default(0)->nullable();
+      $table->boolean('is_billing')->default(0)->nullable();
       $table->boolean('is_active')->default(1);
       $table->timestamps();
       $table->primary(['address_id', 'user_id']);

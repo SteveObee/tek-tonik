@@ -1,5 +1,6 @@
 import {
   getUserAddresses,
+  getAllUserAddresses,
   addAddress,
   deleteAddress,
   updateAddress,
@@ -28,6 +29,7 @@ const mutations = {
 
 const actions = {
   getUserAddresses,
+  getAllUserAddresses,
   addAddress,
   deleteAddress,
   updateAddress,

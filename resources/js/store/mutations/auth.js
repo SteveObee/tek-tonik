@@ -21,6 +21,7 @@ export const LOGOUT_USER = state => {
 
 export const LOAD_USER = (state, payload) => {
   state.user = payload.user;
+  state.loading = false;
 };
 
 export const LOG_ERRORS = (state, payload) => {

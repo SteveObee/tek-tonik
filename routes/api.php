@@ -29,6 +29,8 @@ Route::namespace('Api')->group(function () {
     # User routes
     Route::get('/users', 'UsersController@index');
     Route::get('/users/addresses', 'UsersController@userAddresses');
+    Route::get('/users/basket', 'UsersController@userBasket');
+    Route::get('/users/addresses/all', 'UsersController@allUserAddresses');
     Route::post('/users', 'UsersController@store');
 
     Route::get('/users/{user}', 'UsersController@show');
@@ -46,6 +48,10 @@ Route::namespace('Api')->group(function () {
     # Product routes
     Route::get('/products', 'ProductsController@index');
     Route::get('/products/{product}', 'ProductsController@show');
+    Route::get('/products/{product}/images', 'ProductsController@productImages');
     Route::delete('/products/{product}', 'ProductsController@destroy');
+
+    # Order routes
+
   });
 });

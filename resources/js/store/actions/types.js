@@ -15,6 +15,16 @@ export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const GET_ADDRESSES = "GET_ADDRESSES";
 export const SET_ADDRESS_LOADING = "SET_ADDRESS_LOADING";
 
+// Product types
+export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_PRODUCT = "GET_PRODUCT";
+export const SET_IMAGES = "SET_IMAGES";
+export const CLEAR_IMAGES = "CLEAR_IMAGES";
+
+// Basket types
+export const POPULATE_BASKET = "POPULATE_BASKET";
+export const EMPTY_BASKET = "EMPTY_BASKET";
+
 export const LOG_ERRORS = "LOG_ERRORS";
 export const SET_LOADING = "SET_LOADING";
 export const SET_SAVING = "SET_SAVING";

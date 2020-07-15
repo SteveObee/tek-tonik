@@ -1,5 +1,5 @@
 <template>
-  <div class="dash-profile">
+  <div v-if="user" class="dash-profile">
     <div class="profile-group">
       <h5>Name</h5>
       <p>{{ user.name }}</p>

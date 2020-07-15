@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Basket;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\AddressResource;
+use App\Http\Resources\BasketResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -71,6 +73,20 @@ class UsersController extends Controller
   public function userAddresses(Request $request)
   {
     return AddressResource::collection(User::find(Auth::id())->addresses()->orderBy('created_at', 'desc')->paginate(3));
+  }
+
+  public function allUserAddresses(Request $request)
+  {
+    return AddressResource::collection(User::find(Auth::id())->addresses()->orderBy('created_at', 'desc')->get());
+  }
+
+  public function userBasket(Request $request)
+  {
+    $userBasket = Basket::where('user_id', Auth::id())->first();
+    $userBasket->basketItems;
+    $userBasket->basketOptions;
+
+    return new BasketResource($userBasket);
   }
 
   public function destroy(User $user)

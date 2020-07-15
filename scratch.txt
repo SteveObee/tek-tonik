@@ -1,0 +1,1390 @@
+Table name: ref_payment_method_types  Migration File: 2020_05_19_000000_create_ref_payment_method_types_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateRefPaymentMethodTypesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'ref_payment_method_types';
+
+    /**
+     * Run the migrations.
+     * @table ref_payment_method_types
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: users  Migration File: 2020_05_19_000000_create_users_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateUsersTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'users';
+
+    /**
+     * Run the migrations.
+     * @table users
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->bigIncrements('id');
+            $table->string('name', 100);
+            $table->string('email', 100);
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+
+            $table->unique(["email"], 'email_UNIQUE');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: ref_order_status_codes  Migration File: 2020_05_19_000000_create_ref_order_status_codes_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateRefOrderStatusCodesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'ref_order_status_codes';
+
+    /**
+     * Run the migrations.
+     * @table ref_order_status_codes
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: ref_order_item_status_codes  Migration File: 2020_05_19_000000_create_ref_order_item_status_codes_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateRefOrderItemStatusCodesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'ref_order_item_status_codes';
+
+    /**
+     * Run the migrations.
+     * @table ref_order_item_status_codes
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: suppliers  Migration File: 2020_05_19_000000_create_suppliers_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateSuppliersTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'suppliers';
+
+    /**
+     * Run the migrations.
+     * @table suppliers
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->string('name', 100);
+            $table->string('address_line_1', 45);
+            $table->string('address_line_2', 45)->nullable();
+            $table->string('city', 45);
+            $table->string('county', 45);
+            $table->string('postcode', 45);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: invoice_status_code  Migration File: 2020_05_19_000000_create_invoice_status_code_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateInvoiceStatusCodeTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'invoice_status_code';
+
+    /**
+     * Run the migrations.
+     * @table invoice_status_code
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: brands  Migration File: 2020_05_19_000000_create_brands_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateBrandsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'brands';
+
+    /**
+     * Run the migrations.
+     * @table brands
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->string('name', 100);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: options  Migration File: 2020_05_19_000000_create_options_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateOptionsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'options';
+
+    /**
+     * Run the migrations.
+     * @table options
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->string('name', 45);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: categories  Migration File: 2020_05_19_000000_create_categories_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCategoriesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'categories';
+
+    /**
+     * Run the migrations.
+     * @table categories
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->string('name', 45);
+            $table->integer('category_id');
+
+            $table->index(["category_id"], 'fk_categories_categories1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('category_id', 'fk_categories_categories1_idx')
+                ->references('id')->on('categories')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: addresses  Migration File: 2020_05_19_000000_create_addresses_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateAddressesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'addresses';
+
+    /**
+     * Run the migrations.
+     * @table addresses
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->string('address_line_1', 45);
+            $table->string('address_line_2', 45)->nullable();
+            $table->string('city', 45);
+            $table->string('county', 45);
+            $table->string('postcode', 45);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: option_values  Migration File: 2020_05_19_000000_create_option_values_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateOptionValuesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'option_values';
+
+    /**
+     * Run the migrations.
+     * @table option_values
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->integer('option_id');
+            $table->string('value', 45);
+
+            $table->index(["option_id"], 'fk_option_values_options1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('option_id', 'fk_option_values_options1_idx')
+                ->references('id')->on('options')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: comments  Migration File: 2020_05_19_000000_create_comments_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCommentsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'comments';
+
+    /**
+     * Run the migrations.
+     * @table comments
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->bigInteger('user_id');
+            $table->string('body');
+            $table->integer('commentable_id');
+            $table->string('commentable_type', 10);
+
+            $table->index(["user_id"], 'fk_comments_users1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('user_id', 'fk_comments_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: reviews  Migration File: 2020_05_19_000000_create_reviews_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateReviewsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'reviews';
+
+    /**
+     * Run the migrations.
+     * @table reviews
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->bigInteger('user_id');
+            $table->text('body');
+            $table->integer('reviewable_id');
+            $table->string('reviewable_type', 10);
+            $table->integer('rating');
+
+            $table->index(["user_id"], 'fk_reviews_users1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('user_id', 'fk_reviews_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: customer_addresses  Migration File: 2020_05_19_000000_create_customer_addresses_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCustomerAddressesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'customer_addresses';
+
+    /**
+     * Run the migrations.
+     * @table customer_addresses
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('address_id');
+            $table->bigInteger('user_id');
+            $table->tinyInteger('is_shipping')->default('0');
+            $table->tinyInteger('is_billing')->default('0');
+            $table->tinyInteger('is_active')->default('1');
+
+            $table->index(["address_id"], 'fk_customer_addresses_addresses1_idx');
+
+            $table->index(["user_id"], 'fk_customer_addresses_users1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('address_id', 'fk_customer_addresses_addresses1_idx')
+                ->references('id')->on('addresses')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('user_id', 'fk_customer_addresses_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: customer_address_history  Migration File: 2020_05_19_000000_create_customer_address_history_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCustomerAddressHistoryTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'customer_address_history';
+
+    /**
+     * Run the migrations.
+     * @table customer_address_history
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('date_audited')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->integer('address_id');
+            $table->bigInteger('user_id');
+            $table->timestamp('customer_address_created_at');
+            $table->tinyInteger('is_shipping')->nullable()->default('0');
+            $table->tinyInteger('is_billing')->nullable()->default('0');
+            $table->tinyInteger('is_active')->default('1');
+
+            $table->index(["address_id"], 'fk_customer_addresses_addresses1_idx');
+
+            $table->index(["user_id"], 'fk_customer_addresses_users1_idx');
+
+
+            $table->foreign('address_id', 'fk_customer_addresses_addresses1_idx')
+                ->references('id')->on('addresses')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('user_id', 'fk_customer_addresses_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: products  Migration File: 2020_05_19_000000_create_products_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateProductsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'products';
+
+    /**
+     * Run the migrations.
+     * @table products
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->integer('supplier_id');
+            $table->integer('brand_id');
+            $table->integer('category_id')->nullable();
+            $table->string('name', 100);
+            $table->float('price');
+            $table->text('description');
+            $table->integer('weight');
+            $table->string('thumbnail', 100);
+            $table->float('stock')->nullable();
+            $table->string('model', 45)->nullable();
+
+            $table->index(["supplier_id"], 'fk_products_suppliers1_idx');
+
+            $table->index(["brand_id"], 'fk_products_brands1_idx');
+
+            $table->index(["category_id"], 'fk_products_categories1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('supplier_id', 'fk_products_suppliers1_idx')
+                ->references('id')->on('suppliers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('category_id', 'fk_products_categories1_idx')
+                ->references('id')->on('categories')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('brand_id', 'fk_products_brands1_idx')
+                ->references('id')->on('brands')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: payments_methods  Migration File: 2020_05_19_000000_create_payments_methods_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePaymentsMethodsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'payments_methods';
+
+    /**
+     * Run the migrations.
+     * @table payments_methods
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->bigInteger('users_id');
+            $table->integer('ref_payment_method_types_id');
+
+            $table->index(["ref_payment_method_types_id"], 'fk_payments_methods_ref_payment_method_types1_idx');
+
+            $table->index(["users_id"], 'fk_payments_users1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('users_id', 'fk_payments_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('ref_payment_method_types_id', 'fk_payments_methods_ref_payment_method_types1_idx')
+                ->references('id')->on('ref_payment_method_types')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: orders  Migration File: 2020_05_19_000000_create_orders_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateOrdersTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'orders';
+
+    /**
+     * Run the migrations.
+     * @table orders
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->bigInteger('user_id');
+            $table->integer('ref_order_status_codes_id');
+            $table->integer('orders_id');
+
+            $table->index(["ref_order_status_codes_id"], 'fk_orders_ref_order_status_codes1_idx');
+
+            $table->index(["orders_id"], 'fk_orders_orders1_idx');
+
+            $table->index(["user_id"], 'fk_orders_users1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('user_id', 'fk_orders_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('ref_order_status_codes_id', 'fk_orders_ref_order_status_codes1_idx')
+                ->references('id')->on('ref_order_status_codes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('orders_id', 'fk_orders_orders1_idx')
+                ->references('id')->on('orders')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: invoices  Migration File: 2020_05_19_000000_create_invoices_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateInvoicesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'invoices';
+
+    /**
+     * Run the migrations.
+     * @table invoices
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->integer('orders_id');
+            $table->integer('invoice_status_code_id');
+
+            $table->index(["invoice_status_code_id"], 'fk_invoices_invoice_status_code1_idx');
+
+            $table->index(["orders_id"], 'fk_invoices_orders1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('orders_id', 'fk_invoices_orders1_idx')
+                ->references('id')->on('orders')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('invoice_status_code_id', 'fk_invoices_invoice_status_code1_idx')
+                ->references('id')->on('invoice_status_code')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: images  Migration File: 2020_05_19_000000_create_images_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateImagesTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'images';
+
+    /**
+     * Run the migrations.
+     * @table images
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->integer('product_id');
+            $table->string('url');
+            $table->tinyInteger('sort_order')->nullable();
+
+            $table->index(["product_id"], 'fk_images_products1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('product_id', 'fk_images_products1_idx')
+                ->references('id')->on('products')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: product_options  Migration File: 2020_05_19_000000_create_product_options_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateProductOptionsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'product_options';
+
+    /**
+     * Run the migrations.
+     * @table product_options
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('product_id');
+            $table->integer('option_id');
+            $table->integer('option_value_id');
+
+            $table->index(["option_id"], 'fk_product_options_options1_idx');
+
+            $table->index(["product_id"], 'fk_product_options_products1_idx');
+
+            $table->index(["option_value_id"], 'fk_product_options_option_values1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('product_id', 'fk_product_options_products1_idx')
+                ->references('id')->on('products')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('option_id', 'fk_product_options_options1_idx')
+                ->references('id')->on('options')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('option_value_id', 'fk_product_options_option_values1_idx')
+                ->references('id')->on('option_values')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: order_items  Migration File: 2020_05_19_000000_create_order_items_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateOrderItemsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'order_items';
+
+    /**
+     * Run the migrations.
+     * @table order_items
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->integer('orders_id');
+            $table->integer('products_id');
+            $table->integer('ref_order_item_status_codes_id');
+
+            $table->index(["ref_order_item_status_codes_id"], 'fk_order_items_ref_order_item_status_codes1_idx');
+
+            $table->index(["products_id"], 'fk_order_items_products1_idx');
+
+            $table->index(["orders_id"], 'fk_order_items_orders1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('orders_id', 'fk_order_items_orders1_idx')
+                ->references('id')->on('orders')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('products_id', 'fk_order_items_products1_idx')
+                ->references('id')->on('products')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('ref_order_item_status_codes_id', 'fk_order_items_ref_order_item_status_codes1_idx')
+                ->references('id')->on('ref_order_item_status_codes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: shipments  Migration File: 2020_05_19_000000_create_shipments_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateShipmentsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'shipments';
+
+    /**
+     * Run the migrations.
+     * @table shipments
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->integer('orders_id');
+            $table->integer('invoices_id');
+
+            $table->index(["orders_id"], 'fk_shipments_orders1_idx');
+
+            $table->index(["invoices_id"], 'fk_shipments_invoices1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('orders_id', 'fk_shipments_orders1_idx')
+                ->references('id')->on('orders')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('invoices_id', 'fk_shipments_invoices1_idx')
+                ->references('id')->on('invoices')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: Payments  Migration File: 2020_05_19_000000_create_Payments_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePaymentsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'Payments';
+
+    /**
+     * Run the migrations.
+     * @table Payments
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('id');
+            $table->integer('invoices_id');
+
+            $table->index(["invoices_id"], 'fk_Payments_invoices1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('invoices_id', 'fk_Payments_invoices1_idx')
+                ->references('id')->on('invoices')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+
+Table name: shipment_items  Migration File: 2020_05_19_000000_create_shipment_items_table.php
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateShipmentItemsTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'shipment_items';
+
+    /**
+     * Run the migrations.
+     * @table shipment_items
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = '';
+            $table->increments('shipments_id');
+            $table->integer('order_items_id');
+
+            $table->index(["order_items_id"], 'fk_shipment_items_order_items1_idx');
+            $table->timestamps();
+
+
+            $table->foreign('order_items_id', 'fk_shipment_items_order_items1_idx')
+                ->references('id')->on('order_items')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
+}
+
+
+

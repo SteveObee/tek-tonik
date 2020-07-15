@@ -3,7 +3,7 @@
     <h2 class="section-title">Dashboard</h2>
 
     <div class="dashboard-content">
-      <div class="sidebar">
+      <div class="dashboard-sidebar">
         <ul>
           <router-link class="list-item" :to="{ name: 'dashboard.profile' }"
             >Profile</router-link

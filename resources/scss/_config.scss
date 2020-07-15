@@ -6,8 +6,9 @@ $medium-color: #ccc;
 $dark-color: #333;
 $primary-color: #1cb7ff;
 $bg-image: url("");
+$success-color: #56c06d;
+$warning-color: #ffbb00;
 $danger-color: #d44;
-$dark-green: #56c06d;
 
 // Set Text Color
 @function set-text-color($color) {

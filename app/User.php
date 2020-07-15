@@ -21,6 +21,11 @@ class User extends Authenticatable
     return $this->addresses()->delete();
   }
 
+  public function basket()
+  {
+    return $this->hasOne('App\Basket');
+  }
+
   /**
    * The attributes that are mass assignable.
    *

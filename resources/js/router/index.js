@@ -3,6 +3,8 @@ import Router from "vue-router";
 import usersRoutes from "./admin";
 import dashboardRoutes from "./dashboard";
 import authRoutes from "./auth";
+import productRoutes from "./products";
+import basketRoutes from "./basket";
 
 import Login from "./../views/auth/Login";
 import NotFound from "../views/NotFound.vue";
@@ -20,7 +22,13 @@ const baseRoutes = [
   }
 ];
 
-const routes = baseRoutes.concat(authRoutes, usersRoutes, dashboardRoutes);
+const routes = baseRoutes.concat(
+  authRoutes,
+  usersRoutes,
+  dashboardRoutes,
+  productRoutes,
+  basketRoutes
+);
 
 const router = new Router({
   mode: "history",

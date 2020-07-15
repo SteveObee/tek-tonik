@@ -2,7 +2,6 @@ import Users from "./../views/admin/Users";
 import UsersEdit from "./../views/admin/UsersEdit";
 import UsersCreate from "./../views/admin/UsersCreate.vue";
 import UsersLogin from "./../views/admin/UsersLogin.vue";
-import store from "../store/index";
 
 export default [
   {

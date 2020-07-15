@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration {
 			$table->float('price', 10, 0);
 			$table->text('description', 65535);
 			$table->integer('weight');
-			$table->string('image', 100);
+			$table->string('thumbnail', 100);
 			$table->float('stock', 10, 0)->nullable();
 			$table->string('model', 45)->nullable();
 			$table->timestamps();
