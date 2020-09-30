@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
 
     $steve = factory(App\User::class)->create([
       'name' => 'Steve',
-      'email' => 'steve@steve.com',
+      'email' => 'stephenobee1@gmail.com',
       'email_verified_at' => now(),
       'password' => Hash::make('12345678'),
       'remember_token' => Str::random(10),

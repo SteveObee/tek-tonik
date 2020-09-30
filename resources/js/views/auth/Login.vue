@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="login-form">
-      <form @submit.prevent="onSubmit($event)">
+      <form @submit.prevent="onSubmit($event)" class="form">
         <h1 class="my-1 xxl text-center"><i class="fas fa-lock"></i> Login</h1>
         <div class="form-control text-center">
           <label for="email">Email</label>
@@ -71,7 +71,7 @@ export default {
         await store.dispatch("getBasket", this.$store.state.auth.user.id);
 
         this.$router.push({
-          name: "dashboard.profile"
+          name: "products.index"
         });
       }
     }

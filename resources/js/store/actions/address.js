@@ -1,5 +1,13 @@
 import api from "../../api/address";
-import { GET_ADDRESSES, LOG_ERRORS, SET_MESSAGE, SET_SAVING } from "./types";
+import {
+  GET_ADDRESSES,
+  LOG_ERRORS,
+  LOG_MESSAGE,
+  CLEAR_MESSAGES,
+  SET_SAVING
+} from "./types";
+import store from "../../store/index";
+import { messageHandler } from "../../utils/helpers";
 
 export const getUserAddresses = async ({ commit }, page) => {
   const params = page;
@@ -35,25 +43,21 @@ export const addAddress = async ({ commit }, payload) => {
       is_billing: payload.is_billing
     });
 
-    commit({ type: SET_MESSAGE, message: "Address created" });
-    commit({ type: LOG_ERRORS, errors: null });
+    messageHandler("Address created", "success");
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
-  setTimeout(() => commit({ type: SET_MESSAGE, message: null }), 5000);
 };
 
 export const deleteAddress = async ({ commit }, payload) => {
   try {
     await api.delete(payload.id);
 
-    commit({ type: SET_MESSAGE, message: "Address deleted" });
-    commit({ type: LOG_ERRORS, errors: null });
+    messageHandler("Address deleted", "success");
+    store.dispatch("getUserAddresses", { page: 1 });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
-
-  setTimeout(() => commit({ type: SET_MESSAGE, message: null }), 5000);
 };
 
 export const updateAddress = async ({ commit }, payload) => {
@@ -72,12 +76,10 @@ export const updateAddress = async ({ commit }, payload) => {
       is_billing: payload.is_billing
     });
 
-    commit({ type: SET_MESSAGE, message: "Address updated" });
-    commit({ type: LOG_ERRORS, errors: null });
+    messageHandler("Address updated", "success");
   } catch (err) {
-    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+    commit({ type: LOG_ERRORS, errors: err });
   }
-  setTimeout(() => commit({ type: SET_MESSAGE, message: null }), 5000);
 };
 
 export const resetErrors = ({ commit }) => {

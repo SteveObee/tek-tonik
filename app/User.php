@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-  use HasApiTokens, Notifiable;
+  use HasApiTokens, Notifiable, Billable;
 
   public function addresses()
   {
@@ -24,6 +25,11 @@ class User extends Authenticatable
   public function basket()
   {
     return $this->hasOne('App\Basket');
+  }
+
+  public function orders()
+  {
+    return $this->hasMany('App\Order');
   }
 
   /**

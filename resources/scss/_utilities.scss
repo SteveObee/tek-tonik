@@ -5,6 +5,20 @@
   overflow: hidden;
 }
 
+// Display
+.d-ib {
+  display: inline-block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
 // Colors
 .c-primary {
   color: $primary-color;
@@ -12,6 +26,10 @@
 
 .c-success {
   color: $success-color;
+}
+
+.c-muted {
+  color: $medium-color;
 }
 
 .c-warning {
@@ -26,6 +44,30 @@
   color: #e69833;
 }
 
+.c-grey-25 {
+  color: $grey-25;
+}
+
+.c-grey-50 {
+  color: $grey-50;
+}
+
+.c-grey-75 {
+  color: $grey-75;
+}
+
+.bg-grey-25 {
+  background-color: $grey-25;
+}
+
+.bg-grey-50 {
+  background-color: $grey-50;
+}
+
+.bg-grey-75 {
+  background-color: $grey-75;
+}
+
 // Fonts
 br {
   font-size: 1rem;
@@ -35,9 +77,23 @@ br {
   font-size: small;
 }
 
-// Links
+// Links & Nav
 a {
   cursor: pointer;
+  color: black;
+}
+
+.router-link {
+  color: pink;
+}
+
+.nav-back {
+  color: $dark-color;
+  cursor: pointer;
+
+  i {
+    color: $primary-color;
+  }
 }
 
 // Buttons
@@ -96,6 +152,33 @@ a {
     background-color: $danger-color;
   }
 
+  &-submit {
+    @extend %btn-shared;
+    background-color: $primary-color;
+    color: $white;
+    padding: 10px 20px;
+  }
+
+  &-nav {
+    @extend %btn-shared;
+    border: none;
+    background: transparent;
+  }
+
+  &-warn-clear {
+    @extend %btn-shared;
+    color: $warning-color;
+    padding: 0.3rem 1rem;
+    margin: 0 0.5rem;
+    border: 1px solid $warning-color;
+    background: transparent;
+
+    &:hover {
+      color: lighten($warning-color, 40);
+      background: $warning-color;
+    }
+  }
+
   &-basket {
     @extend %btn-shared;
     color: #333;
@@ -111,12 +194,16 @@ a {
     padding: 0.2rem 0.5rem;
     transition: all 0s;
   }
+
+  &-sm {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.7rem;
+  }
 }
 
 button[class^="btn-"]:hover:enabled,
 a[class^="btn-"]:hover,
 input[class^="btn-"]:hover {
-  // background-color: $main-color;
   opacity: 0.5;
 }
 
@@ -269,7 +356,7 @@ input[class^="btn-"]:hover {
 }
 
 // Forms
-form {
+%form {
   padding: 20px;
   border: 1px solid black;
   display: flex;
@@ -289,9 +376,17 @@ form {
   input[type="checkbox"] {
     display: inline;
   }
+
+  textarea {
+    font-size: 1rem;
+    line-height: 1.6;
+    width: 100%;
+    height: 150px;
+    resize: none;
+  }
 }
 
-%frm-ctrl {
+%form-ctrl {
   margin-bottom: 5px;
   padding-bottom: 10px;
   position: relative;
@@ -306,7 +401,6 @@ form {
     border: 1px solid #777;
     border-radius: 0.3rem;
     padding: 5px;
-    display: block;
     margin-bottom: 5px;
 
     &::placeholder {
@@ -315,12 +409,16 @@ form {
   }
 }
 
+.form {
+  @extend %form;
+}
+
 .form-control {
-  @extend %frm-ctrl;
+  @extend %form-ctrl;
 }
 
 .form-control-chkbox {
-  @extend %frm-ctrl;
+  @extend %form-ctrl;
   display: flex;
   justify-content: space-around;
   margin: 1rem;
@@ -347,4 +445,18 @@ form {
 
 .cu-point {
   cursor: pointer;
+}
+
+// Rotation
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
 }

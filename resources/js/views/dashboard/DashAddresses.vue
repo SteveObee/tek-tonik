@@ -3,9 +3,6 @@
     <Spinner />
   </div>
   <div v-else-if="addresses.data.length > 0">
-    <div v-if="message" class="message mb-1">
-      <h4>{{ message }}</h4>
-    </div>
     <div class="dash-addresses">
       <div class="card" v-bind:class="{ 'cu-point': !creating }">
         <div v-if="creating && !editing">
@@ -148,6 +145,7 @@ import { mapState, mapActions } from "vuex";
 import Spinner from "../Spinner";
 import AddressForm from "./AddressForm";
 import store from "../../store/index";
+import { messageHandler } from "../../utils/helpers";
 
 export default {
   async beforeRouteEnter(to, from, next) {
@@ -182,7 +180,6 @@ export default {
       addresses: state => state.address.addresses,
       loading: state => state.address.loading,
       errors: state => state.address.errors,
-      message: state => state.address.message,
       links: state => state.address.addresses.links,
       meta: state => state.address.addresses.meta
     }),
@@ -211,12 +208,11 @@ export default {
     }
   },
   methods: {
-    async onDeleteClick(event) {
-      await store.dispatch("deleteAddress", {
-        id: event.id
+    onDeleteClick(event) {
+      messageHandler("Really delete Address?", "warning", {
+        action: "deleteAddress",
+        payload: { id: event.id }
       });
-
-      this.getUserAddresses();
     },
     async onEditClick(event) {
       if (!this.creating) {
@@ -224,7 +220,6 @@ export default {
         this.editing_id = event.id;
       }
     },
-    ...mapActions(["getUserAddresses"]),
     goToNext() {
       this.$router.push({
         query: {

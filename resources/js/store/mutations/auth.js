@@ -2,6 +2,10 @@ export const SET_LOADING = (state, payload) => {
   state.loading = payload.loading;
 };
 
+export const SET_SAVING = (state, payload) => {
+  state.saving = payload.saving;
+};
+
 export const SET_AUTHENTICATED = (state, payload) => {
   state.isAuthenticated = payload.authenticated;
 };
@@ -22,9 +26,4 @@ export const LOGOUT_USER = state => {
 export const LOAD_USER = (state, payload) => {
   state.user = payload.user;
   state.loading = false;
-};
-
-export const LOG_ERRORS = (state, payload) => {
-  state.loading = false;
-  state.errors = payload.errors;
 };

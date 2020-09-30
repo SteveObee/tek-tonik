@@ -9,6 +9,13 @@ $bg-image: url("");
 $success-color: #56c06d;
 $warning-color: #ffbb00;
 $danger-color: #d44;
+$black: #000;
+$white: #fff;
+
+// Greys
+$grey-75: #333;
+$grey-50: #777;
+$grey-25: #bbb;
 
 // Set Text Color
 @function set-text-color($color) {

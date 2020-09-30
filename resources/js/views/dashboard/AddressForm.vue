@@ -1,6 +1,6 @@
 <template>
   <div class="card-body">
-    <form @submit.prevent="onSubmit($event)" class="address-form">
+    <form @submit.prevent="onSubmit($event)" class="form address-form">
       <p
         v-if="!address"
         class="c-primary cu-point"

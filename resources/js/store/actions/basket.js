@@ -1,23 +1,37 @@
-import { POPULATE_BASKET, EMPTY_BASKET, LOG_ERRORS } from "./types";
+import { POPULATE_BASKET, EMPTY_BASKET, LOG_ERRORS, SET_TOTAL } from "./types";
 
 import api from "../../api/basket";
+import store from "../index";
+import { messageHandler } from "../../utils/helpers";
 
 export const getBasket = async ({ commit }, userId) => {
   try {
     const basketName = "basket_" + userId;
-    const data = JSON.parse(localStorage.getItem(basketName));
+    const data = await JSON.parse(localStorage.getItem(basketName));
 
     if (data) {
+      store.dispatch("setTotal", data.items);
       commit({ type: POPULATE_BASKET, basket: data });
+    } else {
+      commit({ type: SET_TOTAL, total: 0 });
     }
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
 };
 
-export const emptyBasket = async ({ commit }) => {
+export const emptyBasket = async ({ commit }, payload) => {
   try {
+    const { userId, messageText, messageType } = payload;
+
+    const basketName = "basket_" + payload.userId;
+
+    await localStorage.removeItem(basketName);
+
     commit({ type: EMPTY_BASKET });
+    if (messageText && messageType) {
+      messageHandler(messageText, messageType);
+    }
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
@@ -53,6 +67,7 @@ export const addToBasket = async ({ commit }, item) => {
       id: newId,
       productId: item.productId,
       name: item.name,
+      description: item.description,
       thumbnail: item.thumbnail,
       model: item.model,
       brand: item.brand,
@@ -77,14 +92,39 @@ export const addToBasket = async ({ commit }, item) => {
 
 export const updateBasket = async ({ commit }, payload) => {
   try {
+    const { basket, nextId, messageText, messageType } = payload;
+
     const basketName = "basket_" + payload.userId;
 
-    let basket = {};
+    let newBasket = {};
 
-    basket["items"] = payload.basket;
-    basket["nextId"] = payload.nextId;
+    newBasket["items"] = basket;
+    newBasket["nextId"] = nextId;
 
-    localStorage.setItem(basketName, JSON.stringify(basket));
+    localStorage.setItem(basketName, JSON.stringify(newBasket));
+    if (messageText && messageType) {
+      messageHandler(messageText, messageType);
+    }
+  } catch (err) {
+    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+  }
+};
+
+export const setTotal = async ({ commit }, payload) => {
+  try {
+    let total;
+
+    if (payload) {
+      total = payload
+        .map(item => item.total)
+        .reduce((a, b) => {
+          return a + b;
+        });
+    } else {
+      total = 0;
+    }
+
+    commit({ type: SET_TOTAL, total: total });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }

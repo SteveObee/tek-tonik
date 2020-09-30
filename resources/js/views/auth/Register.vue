@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="login-form">
-      <form @submit.prevent="onSubmit($event)">
+      <form @submit.prevent="onSubmit($event)" class="form">
         <h1 class="my-1 xxl text-center">
           <i class="fas fa-user-plus"></i> Register
         </h1>

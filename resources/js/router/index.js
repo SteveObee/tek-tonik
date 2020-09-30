@@ -5,6 +5,8 @@ import dashboardRoutes from "./dashboard";
 import authRoutes from "./auth";
 import productRoutes from "./products";
 import basketRoutes from "./basket";
+import orderRoutes from "./order";
+import contactRoutes from "./contact";
 
 import Login from "./../views/auth/Login";
 import NotFound from "../views/NotFound.vue";
@@ -27,7 +29,9 @@ const routes = baseRoutes.concat(
   usersRoutes,
   dashboardRoutes,
   productRoutes,
-  basketRoutes
+  basketRoutes,
+  orderRoutes,
+  contactRoutes
 );
 
 const router = new Router({

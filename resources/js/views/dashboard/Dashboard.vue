@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <h2 class="section-title">Dashboard</h2>
+    <h2 class="section-title mb-1">Dashboard</h2>
 
     <div class="dashboard-content">
       <div class="dashboard-sidebar">
@@ -11,8 +11,8 @@
           <router-link class="list-item" :to="{ name: 'dashboard.addresses' }"
             >Addresses</router-link
           >
-          <router-link class="list-item" :to="{ name: 'dashboard.payment' }"
-            >Payment</router-link
+          <router-link class="list-item" :to="{ name: 'dashboard.orders' }"
+            >Orders</router-link
           >
           <router-link class="list-item" :to="{ name: 'dashboard.settings' }"
             >Settings</router-link

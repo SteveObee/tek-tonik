@@ -6,12 +6,7 @@ import {
   updateAddress,
   resetErrors
 } from "../actions/address";
-import {
-  GET_ADDRESSES,
-  LOG_ERRORS,
-  SET_SAVING,
-  SET_MESSAGE
-} from "../mutations/address";
+import { GET_ADDRESSES, SET_MESSAGE } from "../mutations/address";
 
 const state = {
   addresses: null,
@@ -22,8 +17,6 @@ const state = {
 
 const mutations = {
   GET_ADDRESSES,
-  LOG_ERRORS,
-  SET_SAVING,
   SET_MESSAGE
 };
 

@@ -1,5 +1,6 @@
 <template>
   <div v-if="basket" id="basket">
+    <NavButton v-bind:type="'back'" class="mb-2" />
     <div v-for="item in basket" v-bind:key="item.id">
       <BasketItem
         @handle-delete-click="handleDeleteClick"
@@ -21,12 +22,21 @@
     <hr />
     <div class="basket-bottom" v-if="this.basket.length > 0">
       <div class="basket-total py-2">
-        <h4 class="mb-1">Sub total: £{{ grandTotal }}</h4>
-        <h3>Total inclusive of VAT at 19%: £{{ vatTotal }}</h3>
+        <h4 class="mb-1">Total: £{{ total }}</h4>
       </div>
-      <button class="btn-primary">
-        <i class="fas fa-angle-double-right"></i> Proceed to checkout
-      </button>
+      <router-link :to="{ name: 'order.payment' }">
+        <button class="btn-primary">
+          <i class="fas fa-angle-double-right"></i> Proceed to checkout
+        </button>
+      </router-link>
+    </div>
+  </div>
+  <div v-else>
+    <NavButton v-bind:type="'back'" />
+    <div class="basket-empty">
+      <h3>Basket Empty</h3>
+      <i class="fas fa-shopping-cart"></i>
+      <h3>Lets go shopping...</h3>
     </div>
   </div>
 </template>
@@ -35,42 +45,34 @@
 import store from "../../store/index";
 import { mapState, mapActions } from "vuex";
 import BasketItem from "./BasketItem";
+import NavButton from "../layout/NavButton";
 
 export default {
   components: {
-    BasketItem
+    BasketItem,
+    NavButton
   },
-  mounted() {
-    store.dispatch("getBasket", this.$store.state.auth.user.id);
+
+  async mounted() {
+    await store.dispatch("getBasket", this.$store.state.auth.user.id);
+    this.basket && store.dispatch("setTotal", this.basket);
     this.compareItems();
-  },
-  data() {
-    return {};
   },
   computed: {
     ...mapState({
       basket: state => state.basket.basket,
-      nextId: state => state.basket.nextId
-    }),
-    grandTotal: function() {
-      if (this.basket.length > 0) {
-        const total = this.basket
-          .map(item => item.total)
-          .reduce((a, b) => {
-            return a + b;
-          });
-
-        return total.toFixed(2);
-      }
-    },
-    vatTotal: function() {
-      return (this.grandTotal * 1.19).toFixed(2);
-    }
+      nextId: state => state.basket.nextId,
+      total: state => state.basket.total,
+      errors: state => state.basket.errors
+    })
   },
   methods: {
-    ...mapActions(["getBasketItem"]),
+    ...mapActions(["getBasketItem", "setTotal", "emptyBasket"]),
     async compareItems() {
       if (this.basket) {
+        let messageText = null;
+        let messageType = null;
+
         for await (let item of this.basket) {
           // Get current values for product
           const currentProduct = await store.dispatch(
@@ -98,6 +100,10 @@ export default {
 
             // Set previous price diff and timestamp to notify user
             item.priceDiff = parseFloat(itemPriceDiff.toFixed(2));
+
+            // Warn of price change via messaging
+            messageText = "Price change detected";
+            messageType = "warning";
           } else {
             // Stored and current price the same. Reset price diff
             item.priceDiff = null;
@@ -110,18 +116,30 @@ export default {
         store.dispatch("updateBasket", {
           basket: this.basket,
           userId: this.$store.state.auth.user.id,
-          nextId: this.nextId
+          nextId: this.nextId,
+          messageText,
+          messageType
         });
       }
     },
     handleDeleteClick(e) {
       const newBasket = this.basket.filter(item => item.id !== e);
 
-      store.dispatch("updateBasket", {
-        basket: newBasket,
-        userId: this.$store.state.auth.user.id,
-        nextId: this.nextId
-      });
+      if (newBasket.length > 0) {
+        store.dispatch("updateBasket", {
+          basket: newBasket,
+          userId: this.$store.state.auth.user.id,
+          nextId: this.nextId,
+          messageText: "Item removed from basket",
+          messageType: "success"
+        });
+      } else {
+        store.dispatch("emptyBasket", {
+          userId: this.$store.state.auth.user.id,
+          messageText: "Basket emptied",
+          messageType: "success"
+        });
+      }
 
       store.dispatch("getBasket", this.$store.state.auth.user.id);
     }

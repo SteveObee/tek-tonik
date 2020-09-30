@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\OrderResource;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
@@ -75,6 +76,11 @@ class UsersController extends Controller
     return AddressResource::collection(User::find(Auth::id())->addresses()->orderBy('created_at', 'desc')->paginate(3));
   }
 
+  public function userOrders(Request $request)
+  {
+    return OrderResource::collection(User::find(Auth::id())->orders()->orderBy('ref_order_status_code_id', 'asc')->get());
+  }
+
   public function allUserAddresses(Request $request)
   {
     return AddressResource::collection(User::find(Auth::id())->addresses()->orderBy('created_at', 'desc')->get());
@@ -87,6 +93,21 @@ class UsersController extends Controller
     $userBasket->basketOptions;
 
     return new BasketResource($userBasket);
+  }
+
+  public function chargeUser(Request $request)
+  {
+    $user = User::find(Auth::id());
+
+    try {
+      $stripeCharge = $user->charge($request->amount, $request->id);
+
+      return response()->json([
+        'success' => true
+      ]);
+    } catch (Exception $e) {
+      return response($e, 500);
+    }
   }
 
   public function destroy(User $user)

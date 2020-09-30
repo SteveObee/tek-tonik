@@ -1,12 +1,12 @@
-import Products from "../views/products/Products";
+import ProductsPage from "../views/products/ProductsPage";
 import Product from "../views/products/Product.vue";
 
 export default [
   {
     path: "/products",
     name: "products.index",
-    title: "Products",
-    component: Products
+    title: "ProductsPage",
+    component: ProductsPage
   },
   {
     path: "/products/:id",

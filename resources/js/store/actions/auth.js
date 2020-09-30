@@ -5,7 +5,8 @@ import {
   LOAD_USER,
   LOGOUT_USER,
   REGISTER_USER,
-  SET_AUTHENTICATED
+  SET_AUTHENTICATED,
+  EMPTY_BASKET
 } from "./types";
 
 import api from "../../api/auth";
@@ -30,6 +31,7 @@ export const logoutUser = async ({ commit }) => {
   try {
     await api.logout();
 
+    commit({ type: EMPTY_BASKET });
     commit({ type: LOGOUT_USER });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });

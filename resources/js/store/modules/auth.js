@@ -3,14 +3,15 @@ import {
   LOGIN_USER,
   LOAD_USER,
   LOGOUT_USER,
-  LOG_ERRORS,
   REGISTER_USER,
   SET_LOADING,
+  SET_SAVING,
   SET_AUTHENTICATED
 } from "../mutations/auth";
 
 const state = {
   loading: true,
+  saving: false,
   isAuthenticated: null,
   user: null,
   errors: null
@@ -20,9 +21,9 @@ const mutations = {
   LOGIN_USER,
   LOAD_USER,
   LOGOUT_USER,
-  LOG_ERRORS,
   REGISTER_USER,
   SET_LOADING,
+  SET_SAVING,
   SET_AUTHENTICATED
 };
 

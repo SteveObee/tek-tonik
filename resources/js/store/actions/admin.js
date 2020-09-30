@@ -9,7 +9,8 @@ import {
 } from "./types";
 
 import axios from "axios";
-import api from "../../api/users";
+import api from "../../api/admin";
+import { messageHandler } from "../../utils/helpers";
 
 export const getUsers = async ({ commit }, page) => {
   const params = page;
@@ -88,4 +89,16 @@ export const deleteUser = async ({ commit }, payload) => {
 
   commit({ type: SET_SAVING, saving: false });
   setTimeout(() => commit({ type: SET_MESSAGE, message: null }), 5000);
+};
+
+export const contactAdmin = async ({ commit }, payload) => {
+  try {
+    const res = await api.contact(payload);
+
+    commit({ type: LOG_ERRORS, errors: null });
+
+    messageHandler("Message sent", "success");
+  } catch (err) {
+    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+  }
 };

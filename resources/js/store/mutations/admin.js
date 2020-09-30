@@ -8,17 +8,8 @@ export const GET_USER = (state, payload) => {
   state.auth.user = payload.user;
 };
 
-export const LOG_ERRORS = (state, payload) => {
-  state.loading = false;
-  state.errors = payload.errors;
-};
-
 export const SET_LOADING = (state, payload) => {
   state.loading = payload.loading;
-};
-
-export const SET_SAVING = (state, payload) => {
-  state.saving = payload.saving;
 };
 
 export const SET_MESSAGE = (state, payload) => {

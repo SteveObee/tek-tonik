@@ -8,6 +8,7 @@
   <title>Ecomm app</title>
   <link rel="stylesheet" href="{{mix('css/main.css')}}">
   <script src="https://kit.fontawesome.com/969ad30f5b.js" crossorigin="anonymous"></script>
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>

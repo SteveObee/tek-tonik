@@ -7,3 +7,7 @@ export const POPULATE_BASKET = (state, payload) => {
 export const EMPTY_BASKET = state => {
   state.basket = null;
 };
+
+export const SET_TOTAL = (state, payload) => {
+  state.total = payload.total.toFixed(2);
+};

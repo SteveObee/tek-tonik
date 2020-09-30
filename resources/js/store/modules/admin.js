@@ -3,15 +3,14 @@ import {
   getUser,
   updateUser,
   deleteUser,
-  createUser
+  createUser,
+  contactAdmin
 } from "../actions/admin";
 
 import {
   GET_USER,
   GET_USERS,
-  LOG_ERRORS,
   SET_LOADING,
-  SET_SAVING,
   SET_MESSAGE,
   RESET_STATE
 } from "../mutations/admin";
@@ -28,14 +27,19 @@ const state = {
 const mutations = {
   GET_USER,
   GET_USERS,
-  LOG_ERRORS,
   SET_LOADING,
-  SET_SAVING,
   SET_MESSAGE,
   RESET_STATE
 };
 
-const actions = { getUsers, getUser, updateUser, deleteUser, createUser };
+const actions = {
+  getUsers,
+  getUser,
+  updateUser,
+  deleteUser,
+  createUser,
+  contactAdmin
+};
 
 export default {
   state,

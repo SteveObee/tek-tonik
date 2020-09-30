@@ -54,7 +54,7 @@ export default {
     ...mapState({
       // user: state => state.users.user,
       loading: state => state.admin.loading,
-      saving: state => state.admin.saving,
+      saving: state => state.auth.saving,
       message: state => state.admin.message,
       errors: state => state.admin.errors
     })

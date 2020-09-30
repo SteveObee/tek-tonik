@@ -1,5 +1,6 @@
 <template>
   <div id="product">
+    <NavButton v-bind:type="'back'" class="mb-1" />
     <div class="product-grid">
       <div class="item-title">
         {{ product.brand.name }} {{ product.name }} {{ product.model }} ({{
@@ -105,8 +106,12 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import store from "../../store/index";
+import NavButton from "../layout/NavButton";
 
 export default {
+  components: {
+    NavButton
+  },
   data() {
     return {
       mainImage: "",
@@ -187,6 +192,7 @@ export default {
         userId: this.user.id,
         productId: this.product.id,
         name: this.product.name,
+        description: this.product.description,
         thumbnail: this.product.thumbnail,
         model: this.product.model,
         brand: this.product.brand.name,
@@ -205,7 +211,8 @@ export default {
       user: state => state.auth.user,
       product: state => state.product.product,
       images: state => state.product.images,
-      addresses: state => state.address.addresses
+      addresses: state => state.address.addresses,
+      basket: state => state.basket.basket
     })
   }
 };

@@ -18,15 +18,14 @@ export const GET_PRODUCT = (state, payload) => {
   state.loading = false;
 };
 
-export const LOG_ERRORS = (state, payload) => {
-  state.errors = payload.errors;
-  state.loading = false;
+export const SET_SEARCHING = (state, payload) => {
+  state.searching = payload.searching;
 };
 
-export const SET_MESSAGE = (state, payload) => {
-  state.message = payload.message;
+export const SET_SEARCH_QUERY = (state, payload) => {
+  state.searchQuery = payload.searchQuery;
 };
 
-export const SET_SAVING = (state, payload) => {
-  state.saving = payload.saving;
+export const SET_BRANDS = (state, payload) => {
+  state.productBrands = payload.brands;
 };
