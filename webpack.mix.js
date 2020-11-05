@@ -15,4 +15,4 @@ mix
   .js("resources/js/app.js", "public/js")
   .sass("resources/scss/main.scss", "public/css");
 
-mix.browserSync("ecomm-lav.local");
+mix.browserSync("tek-tonik.local");
