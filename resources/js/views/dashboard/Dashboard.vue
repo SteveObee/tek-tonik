@@ -14,9 +14,11 @@
           <router-link class="list-item" :to="{ name: 'dashboard.orders' }"
             >Orders</router-link
           >
+          <!-- To do
           <router-link class="list-item" :to="{ name: 'dashboard.settings' }"
             >Settings</router-link
           >
+          -->
         </ul>
       </div>
       <div class="content">

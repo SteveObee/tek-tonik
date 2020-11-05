@@ -3,17 +3,16 @@
     <NavButton v-bind:type="'back'" class="mb-1" />
     <div class="product-grid">
       <div class="item-title">
-        {{ product.brand.name }} {{ product.name }} {{ product.model }} ({{
-          color
-        }}, {{ product.created_at.slice(0, 4) }})
+        <h4>
+          {{ product.brand.name }} {{ product.name }} {{ product.model }} ({{
+            color
+          }}, {{ product.created_at.slice(0, 4) }})
+        </h4>
       </div>
       <div class="item-right">
         <div class="pricing mb-3">
           <h3 class="c-price">£{{ product.price }}</h3>
-          <h4
-            v-if="product.stock"
-            v-bind:class="product.stock > 10 ? 'c-success' : 'c-warning'"
-          >
+          <h4 v-if="product.stock" v-bind:class="stockClass">
             {{ product.stock }} in stock
           </h4>
           <h4 v-else class="c-danger">
@@ -44,8 +43,12 @@
           </div>
         </div>
         <div class="product-buttons">
-          <button class="btn-primary basket-add" v-on:click="addToBasket()">
-            <p><i class="fas fa-plus"></i> Add to basket</p>
+          <button
+            class="btn-primary basket-add"
+            v-on:click="addToBasket()"
+            :disabled="!product.stock"
+          >
+            <p><i class="fas fa-plus"></i> Basket</p>
           </button>
           <transition name="slide">
             <div class="basket-added" v-if="added">
@@ -53,20 +56,17 @@
             </div>
           </transition>
         </div>
-        <div
-          v-if="user && addresses.length > 0"
-          class="product-address my-2 cu-point"
-        >
-          <i class="fas fa-map-marker-alt"></i> Deliver to {{ user.name }},
-          {{ addresses[0].city }}, {{ addresses[0].postcode }}
-        </div>
-        <div
-          v-else-if="user && addresses.length == 0"
-          class="product-address my-2 cu-point"
-        >
-          <router-link :to="{ name: 'dashboard.addresses' }"
-            ><i class="fas fa-map-marker-alt"></i> Add address</router-link
-          >
+
+        <div v-if="user">
+          <div v-if="address" class="product-address my-2 cu-point">
+            <i class="fas fa-map-marker-alt"></i> Deliver to {{ user.name }},
+            {{ address.city }}, {{ address.postcode }}
+          </div>
+          <div v-else class="product-address my-2 cu-point">
+            <router-link :to="{ name: 'dashboard.addresses' }"
+              ><i class="fas fa-map-marker-alt"></i> Add address</router-link
+            >
+          </div>
         </div>
       </div>
       <div class="item-image">
@@ -114,6 +114,7 @@ export default {
   },
   data() {
     return {
+      address: null,
       mainImage: "",
       color: "",
       activeColor: "",
@@ -124,7 +125,7 @@ export default {
   async beforeRouteEnter(to, from, next) {
     try {
       await store.dispatch("getProduct", to.params.id);
-      await store.dispatch("getAllUserAddresses");
+
       await store.dispatch("getImages", { id: to.params.id, page: 1 });
       next(vm => {
         vm.mainImage = vm.images.data[0].url;
@@ -137,6 +138,15 @@ export default {
       });
     }
   },
+  async mounted() {
+    if (this.auth) {
+      await store.dispatch("getAllUserAddresses");
+    }
+
+    if (this.shippingAddresses) {
+      this.address = this.shippingAddresses[0];
+    }
+  },
   methods: {
     ...mapActions([
       "getProduct",
@@ -144,6 +154,7 @@ export default {
       "getAllUserAddresses",
       "addToBasket"
     ]),
+
     async prevPage() {
       const prevPageId = this.images.meta.current_page - 1;
 
@@ -208,12 +219,35 @@ export default {
   },
   computed: {
     ...mapState({
+      auth: state => state.auth.isAuthenticated,
       user: state => state.auth.user,
       product: state => state.product.product,
       images: state => state.product.images,
       addresses: state => state.address.addresses,
       basket: state => state.basket.basket
-    })
+    }),
+    shippingAddresses() {
+      if (this.addresses) {
+        let newShippingAddresses = [];
+
+        this.addresses.forEach(address => {
+          address.is_shipping === 1 && newShippingAddresses.push(address);
+        });
+
+        if (newShippingAddresses.length > 0) {
+          this.shippingId = newShippingAddresses[0].id;
+        }
+
+        return newShippingAddresses.length > 0 ? newShippingAddresses : null;
+      }
+    },
+    stockClass() {
+      return this.product.stock === 0
+        ? "c-danger"
+        : this.product.stock <= 10
+        ? "c-warning"
+        : "c-success";
+    }
   }
 };
 </script>

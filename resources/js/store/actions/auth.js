@@ -6,14 +6,15 @@ import {
   LOGOUT_USER,
   REGISTER_USER,
   SET_AUTHENTICATED,
-  EMPTY_BASKET
+  EMPTY_BASKET,
+  SET_TOTAL,
+  GET_ADDRESSES
 } from "./types";
 
 import api from "../../api/auth";
 
 export const loginUser = async ({ commit }, payload) => {
   try {
-    commit({ type: SET_LOADING, loading: true });
     await api.csrf();
     const res = await api.login({
       email: payload.email,
@@ -33,6 +34,7 @@ export const logoutUser = async ({ commit }) => {
 
     commit({ type: EMPTY_BASKET });
     commit({ type: LOGOUT_USER });
+    commit({ type: GET_ADDRESSES, addresses: null });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
@@ -57,7 +59,6 @@ export const loadUser = async ({ commit }) => {
 
 export const registerUser = async ({ commit }, payload) => {
   try {
-    commit({ type: SET_LOADING, loading: true });
     await api.register({
       name: payload.name,
       email: payload.email,

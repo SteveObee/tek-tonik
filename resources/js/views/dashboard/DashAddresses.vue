@@ -2,12 +2,11 @@
   <div v-if="loading">
     <Spinner />
   </div>
-  <div v-else-if="addresses.data.length > 0">
-    <div class="dash-addresses">
+  <div v-else-if="addressesExist">
+    <div class="dash-addresses" :class="[addressesClass]">
       <div class="card" v-bind:class="{ 'cu-point': !creating }">
         <div v-if="creating && !editing">
           <AddressForm
-            :errors="errors"
             v-bind:creating.sync="creating"
             v-bind:editing.sync="editing"
           />
@@ -17,8 +16,8 @@
           class="address-flip"
           v-on:click="!editing && (creating = !creating)"
         >
-          <h1 class="text-muted">Add<br />Address</h1>
-          <h1><i class="fas fa-plus text-muted"></i></h1>
+          <h2 class="text-muted">Add<br />Address</h2>
+          <h2><i class="fas fa-plus text-muted"></i></h2>
         </div>
       </div>
       <div
@@ -36,7 +35,6 @@
       >
         <div v-if="id == editing_id && editing && !creating">
           <AddressForm
-            :errors="errors"
             :address="{
               id,
               address_line_1,
@@ -106,36 +104,36 @@
         </div>
       </div>
     </div>
-    <div class="pagination my-2">
-      <button class="btn-light" :disabled="!prevPage" @click.prevent="goToPrev">
-        Previous
-      </button>
-      {{ paginatonCount }}
-      <button class="btn-light" :disabled="!nextPage" @click.prevent="goToNext">
-        Next
-      </button>
+    <div v-if="displayPagination" class="pagination my-2">
+        <button
+          class="btn-light"
+          :disabled="!prevPage"
+          @click.prevent="goToPrev"
+        >
+          Previous
+        </button>
+        {{ paginatonCount }}
+        <button
+          class="btn-light"
+          :disabled="!nextPage"
+          @click.prevent="goToNext"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </div>
   <div v-else>
-    <div v-if="message" class="message mb-1">
-      <h4>{{ message }}</h4>
-    </div>
-    <div class="dash-addresses">
+    <div class="dash-addresses" :class="[addressesClass]">
       <div class="card" v-bind:class="{ 'cu-point': !creating }">
         <div v-if="creating">
-          <AddressForm :errors="errors" v-bind:creating.sync="creating" />
+          <AddressForm v-bind:creating.sync="creating" />
         </div>
         <div v-else class="address-flip" v-on:click="creating = !creating">
-          <h1 class="text-muted">Add<br />Address</h1>
-          <h1><i class="fas fa-plus text-muted"></i></h1>
+          <h2 class="text-muted">Add<br />Address</h2>
+          <h2><i class="fas fa-plus text-muted"></i></h2>
         </div>
       </div>
-    </div>
-
-    <div class="pagination">
-      <button :disabled="!prevPage" @click.prevent="goToPrev">Previous</button>
-      {{ paginatonCount }}
-      <button :disabled="!nextPage" @click.prevent="goToNext">Next</button>
     </div>
   </div>
 </template>
@@ -173,29 +171,33 @@ export default {
     AddressForm
   },
   data: function() {
-    return { creating: false, editing_id: null, editing: false };
+    return { creating: false, editing_id: null, editing: false};
   },
   computed: {
     ...mapState({
       addresses: state => state.address.addresses,
       loading: state => state.address.loading,
-      errors: state => state.address.errors,
-      links: state => state.address.addresses.links,
       meta: state => state.address.addresses.meta
     }),
+    addressesExist() {
+      return this.addresses && this.addresses.data.length > 0;
+    },
+    addressesClass() {
+      return this.addresses && this.addresses.data.length > 0 ? "auto-columns-2" : "auto-columns-1";
+    },
     nextPage() {
-      if (!this.meta || this.meta.current_page === this.meta.last_page) {
-        return;
-      }
+      if (this.meta) {
+        const { current_page, last_page } = this.meta;
 
-      return this.meta.current_page + 1;
+        return current_page !== last_page && current_page + 1;
+      }
     },
     prevPage() {
-      if (!this.meta || this.meta.current_page === 1) {
-        return;
-      }
+      if (this.meta) {
+        const { current_page } = this.meta;
 
-      return this.meta.current_page - 1;
+        return current_page !== 1 && current_page - 1;
+      }
     },
     paginatonCount() {
       if (!this.meta) {
@@ -205,14 +207,17 @@ export default {
       const { current_page, last_page } = this.meta;
 
       return `${current_page} of ${last_page}`;
+    },
+    displayPagination() {
+      return this.meta && this.meta.total > 3 ? true : false; 
     }
   },
   methods: {
     onDeleteClick(event) {
-      messageHandler("Really delete Address?", "warning", {
-        action: "deleteAddress",
+      messageHandler("Really delete Address?", "warning", [{
+          action: "deleteAddress",
         payload: { id: event.id }
-      });
+      }]);
     },
     async onEditClick(event) {
       if (!this.creating) {

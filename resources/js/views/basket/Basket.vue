@@ -22,13 +22,16 @@
     <hr />
     <div class="basket-bottom" v-if="this.basket.length > 0">
       <div class="basket-total py-2">
-        <h4 class="mb-1">Total: £{{ total }}</h4>
+        <h4 class="mb-1">Total: £{{ totalFixed }}</h4>
       </div>
-      <router-link :to="{ name: 'order.payment' }">
+      <router-link v-if="auth" :to="{ name: 'order.payment' }">
         <button class="btn-primary">
           <i class="fas fa-angle-double-right"></i> Proceed to checkout
         </button>
       </router-link>
+      <button v-else @click="toRegister()" class="btn-primary">
+        <i class="fas fa-angle-double-right"></i> Register & Checkout
+      </button>
     </div>
   </div>
   <div v-else>
@@ -60,14 +63,19 @@ export default {
   },
   computed: {
     ...mapState({
+      auth: state => state.auth.isAuthenticated,
+      user: state => state.auth.user,
       basket: state => state.basket.basket,
       nextId: state => state.basket.nextId,
       total: state => state.basket.total,
       errors: state => state.basket.errors
-    })
+    }),
+    totalFixed() {
+      return this.total.toFixed(2);
+    }
   },
   methods: {
-    ...mapActions(["getBasketItem", "setTotal", "emptyBasket"]),
+    ...mapActions(["getBasketItem", "setTotal", "emptyBasket", "getBasket"]),
     async compareItems() {
       if (this.basket) {
         let messageText = null;
@@ -113,14 +121,24 @@ export default {
         }
 
         // Update price diff in local storage
-        store.dispatch("updateBasket", {
+        await store.dispatch("updateBasket", {
           basket: this.basket,
           userId: this.$store.state.auth.user.id,
           nextId: this.nextId,
           messageText,
           messageType
         });
+
+        this.getBasket(this.user.id);
       }
+    },
+    toRegister() {
+      this.$router.push({
+        name: "register",
+        params: {
+          checkingOut: true
+        }
+      });
     },
     handleDeleteClick(e) {
       const newBasket = this.basket.filter(item => item.id !== e);
@@ -128,20 +146,20 @@ export default {
       if (newBasket.length > 0) {
         store.dispatch("updateBasket", {
           basket: newBasket,
-          userId: this.$store.state.auth.user.id,
+          userId: this.user.id,
           nextId: this.nextId,
           messageText: "Item removed from basket",
           messageType: "success"
         });
       } else {
         store.dispatch("emptyBasket", {
-          userId: this.$store.state.auth.user.id,
+          userId: this.user.id,
           messageText: "Basket emptied",
           messageType: "success"
         });
       }
 
-      store.dispatch("getBasket", this.$store.state.auth.user.id);
+      store.dispatch("getBasket", this.user.id);
     }
   }
 };

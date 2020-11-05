@@ -27,7 +27,7 @@ Route::namespace('Api')->group(function () {
   Route::post('/users/token', 'UsersController@getToken');
 
   Route::middleware('auth:sanctum')->group(function () {
-    # Admin routes
+    # Admin Auth routes
     Route::get('/users', 'UsersController@index');
     Route::get('/users/addresses', 'UsersController@userAddresses');
     Route::get('/users/orders', 'UsersController@userOrders');
@@ -40,8 +40,6 @@ Route::namespace('Api')->group(function () {
     Route::delete('/users/{user}', 'UsersController@destroy');
     Route::post('/users/charge', 'UsersController@chargeUser');
 
-    Route::post('admin/contact', 'AdminController@contact');
-
     # Address routes
     Route::get('/addresses', 'AddressesController@index');
 
@@ -49,32 +47,35 @@ Route::namespace('Api')->group(function () {
     Route::get('/addresses/{address}', 'AddressesController@show');
     Route::put('/addresses/{address}', 'AddressesController@update');
     Route::delete('/addresses/{address}', 'AddressesController@destroy');
-
-    # Product routes
-    Route::get('/products', 'ProductsController@index');
-    Route::get('/products/category/{category}', 'ProductsController@productsByCategory');
-
-    Route::get('/products/{product}', 'ProductsController@show');
-    Route::get('/products/{product}/images', 'ProductsController@productImages');
-    Route::get('/products/{product}/quantity', 'ProductsController@productQuantity');
-    Route::post('/products/{product}/quantity', 'ProductsController@updateQuantity');
-    Route::delete('/products/{product}', 'ProductsController@destroy');
-
-    # Order routes
-    Route::get('/orders', 'OrdersController@index');
-    Route::get('/orders/stripekey', 'OrdersController@stripeKey');
-    Route::post('/orders/create', 'OrdersController@store');
-    Route::put('/orders/{order}', 'OrdersController@update');
-
-    Route::post('/orders/additem', 'OrderItemsController@store');
-    Route::get('/orders/placed/{order}', 'OrdersController@placed');
-
-    # Category routes
-    Route::get('/categories', 'CategoriesController@index');
-    Route::get('/categories/recursed', 'CategoriesController@recursed');
-    Route::get('/categories/{category}', 'CategoriesController@recursiveCategoryIds');
-
-    # Brand routes
-    Route::get('/brands', 'BrandsController@index');
   });
+
+  # Order routes
+  Route::get('/orders', 'OrdersController@index');
+  Route::get('/orders/stripekey', 'OrdersController@stripeKey');
+  Route::post('/orders/create', 'OrdersController@store');
+  Route::put('/orders/{order}', 'OrdersController@update');
+
+  Route::post('/orders/additem', 'OrderItemsController@store');
+  Route::get('/orders/placed/{order}', 'OrdersController@placed');
+
+  # Admin routes
+  Route::post('admin/contact', 'AdminController@contact');
+
+  # Product routes
+  Route::get('/products', 'ProductsController@index');
+  Route::get('/products/category/{category}', 'ProductsController@productsByCategory');
+
+  Route::get('/products/{product}', 'ProductsController@show');
+  Route::get('/products/{product}/images', 'ProductsController@productImages');
+  Route::get('/products/{product}/quantity', 'ProductsController@productQuantity');
+  Route::post('/products/{product}/quantity', 'ProductsController@updateQuantity');
+  Route::delete('/products/{product}', 'ProductsController@destroy');
+
+  # Category routes
+  Route::get('/categories', 'CategoriesController@index');
+  Route::get('/categories/recursed', 'CategoriesController@recursed');
+  Route::get('/categories/{category}', 'CategoriesController@recursiveCategoryIds');
+
+  # Brand routes
+  Route::get('/brands', 'BrandsController@index');
 });

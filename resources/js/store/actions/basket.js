@@ -124,8 +124,8 @@ export const setTotal = async ({ commit }, payload) => {
       total = 0;
     }
 
-    commit({ type: SET_TOTAL, total: total });
+    commit({ type: SET_TOTAL, total });
   } catch (err) {
-    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+    console.error(err);
   }
 };

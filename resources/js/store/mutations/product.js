@@ -18,6 +18,10 @@ export const GET_PRODUCT = (state, payload) => {
   state.loading = false;
 };
 
+export const SET_PRODUCT_LOADING = (state, payload) => {
+  state.loading = payload.loading;
+};
+
 export const SET_SEARCHING = (state, payload) => {
   state.searching = payload.searching;
 };

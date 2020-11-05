@@ -1,15 +1,18 @@
 <template>
-  <div id="products-page" v-if="categoryProducts">
+  <div v-if="loading" class="products-spinner">
+    <Spinner />
+  </div>
+  <div id="products-page" v-else-if="categoryProducts">
     <div class="products-left">
       <Menu
         v-bind:sub_categories="recursedCategories"
-        name="Ecomm"
+        name="All Products"
         :id="1"
         :depth="0"
-        class="mb-2"
+        class="products-menu mb-2"
       />
 
-      <div class="products-filter">
+      <div class="products-filter bg-white">
         <h4 class="mb-1">Brand</h4>
         <div v-for="brand in productBrands" class="filter-chkbox">
           <input
@@ -35,36 +38,11 @@
     </div>
 
     <div v-if="categoryProducts.length > 0" class="products-center">
-      <div v-if="searchQuery" class="c-muted">
-        <p>Searched for "{{ searchQuery }}" in {{ selectedCategory.name }}</p>
-      </div>
-      <div v-if="filteredBrands.length > 0" class="c-muted">
-        <p>
-          Filtering products from{{ " " }}
-          <span v-for="brand in filteredBrands">
-            {{ productBrands[brand - 1].name }}
-          </span>
-        </p>
-      </div>
-
-      <div v-for="id in recursiveIds" :key="id" class="mt-1">
-        <Products
-          v-bind:categoryId="id"
-          v-bind:categories="categories"
-          v-bind:filteredBrands="filteredBrands"
-          v-bind:sortedPrice="sortedPrice"
-          v-bind:recursiveIds="recursiveIds"
-          v-bind:products="categoryProducts"
-        />
-      </div>
-    </div>
-
-    <div v-else>
-      <div class="mb-1">
-        <div v-if="searchQuery" class="c-muted">
+      <div class="mb-1 products-results c-grey-50">
+        <div v-if="searchQuery">
           <p>Searched for "{{ searchQuery }}" in {{ selectedCategory.name }}</p>
         </div>
-        <div v-if="filteredBrands.length > 0" class="c-muted">
+        <div v-if="filteredBrands.length > 0">
           <p>
             Filtering products from{{ " " }}
             <span v-for="brand in filteredBrands">
@@ -74,7 +52,35 @@
         </div>
       </div>
 
-      <h4 class="c-muted">No products found</h4>
+      <div v-for="id in recursiveIds" :key="id" class="mb-1">
+        <Products
+          v-bind:categoryId="id"
+          v-bind:categories="categories"
+          v-bind:filteredBrands="filteredBrands"
+          v-bind:sortedPrice="sortedPrice"
+          v-bind:recursiveIds="recursiveIds"
+          v-bind:products="categoryProducts"
+          class="bg-white"
+        />
+      </div>
+    </div>
+
+    <div v-else>
+      <div class="mb-1 products-results c-grey-50">
+        <div v-if="searchQuery">
+          <p>Searched for "{{ searchQuery }}" in {{ selectedCategory.name }}</p>
+        </div>
+        <div v-if="filteredBrands.length > 0">
+          <p>
+            Filtering products from{{ " " }}
+            <span v-for="brand in filteredBrands">
+              {{ productBrands[brand - 1].name }}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <h4 class="">No products found</h4>
     </div>
   </div>
 </template>
@@ -85,6 +91,7 @@ import { search } from "../../utils/helpers";
 import store from "../../store/index";
 import Menu from "../layout/Menu";
 import ProductItem from "./ProductItem";
+import ProductsFilter from "./ProductsFilter";
 import Products from "./Products";
 import Spinner from "../Spinner";
 
@@ -93,6 +100,7 @@ export default {
   components: {
     Menu,
     Products,
+    ProductsFilter,
     Spinner
   },
   data() {
@@ -100,21 +108,28 @@ export default {
       desc: "desc",
       asc: "asc",
       filteredBrands: [],
-      sortedPrice: "desc"
+      sortedPrice: "desc",
+      prevRoute: null
     };
   },
   async mounted() {
     await store.dispatch("getRecursiveCategoryIds", this.selectedCategory.id);
-    await store.dispatch("getAllProducts", {
-      category_ids: this.recursiveIds
-    });
+
+    if (this.recursiveIds.length > 1) {
+      await store.dispatch("getAllProducts", {
+        category_ids: this.recursiveIds
+      });
+    }
+
     await store.dispatch("getProductBrands");
     await store.dispatch("getAllCategories");
   },
   async beforeRouteEnter(to, from, next) {
     try {
       await store.dispatch("getAllRecursiveCategories");
-      next();
+      next(vm => {
+        vm.prevRoute = from;
+      });
     } catch (e) {
       next({
         name: "users"

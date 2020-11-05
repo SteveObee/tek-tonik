@@ -29,6 +29,14 @@ body {
   flex: 1 0 auto;
 }
 
+.main-content-bg {
+  background: linear-gradient(
+    to bottom,
+    rgb(217, 123, 147, 0) 0%,
+    rgb(110, 82, 157, 0.3) 100%
+  );
+}
+
 // General Styles
 
 a {
@@ -53,17 +61,56 @@ img {
 
 // Status Bar
 #status-bar {
+  margin: 0 0 2rem 0;
+
+  img {
+    width: 50%;
+  }
+
   display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 1rem 0;
+  justify-content: space-between;
+  align-items: center;
 
   a {
     color: #888;
     margin-left: 1rem;
+    padding-bottom: 0.5rem;
 
     &:hover {
       color: $main-color;
     }
+  }
+
+  .status-bar-right {
+    flex-shrink: 0;
+  }
+
+  .router-link-active-status {
+    border-bottom: 2px solid $primary-color;
+  }
+}
+
+// Modal
+#modal {
+  z-index: 1 !important;
+
+  .modal-background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .close-modal {
+    text-align: right;
+  }
+
+  .modal-body {
+    border-radius: 15px;
+    background-color: #fff;
   }
 }
 
@@ -130,10 +177,8 @@ img {
 // Main Nav
 #main-bar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 1rem;
-  // border-bottom: 2px solid $medium-color;
+  margin: 0 0 4rem 0;
 
   i {
     color: $medium-color;
@@ -141,7 +186,7 @@ img {
   }
 
   .search-bar {
-    border: 2px solid $medium-color;
+    border: 1px solid $medium-color;
     border-radius: 15px;
     padding: 3px;
 
@@ -156,7 +201,8 @@ img {
   }
 
   .nav-link {
-    padding: 0 1rem 1rem;
+    padding: 0 0 1rem 0;
+    margin-left: 1rem;
   }
 
   .router-link-active {
@@ -172,6 +218,14 @@ img {
     &:hover {
     }
   }
+}
+
+.main-with-search {
+  justify-content: space-between;
+}
+
+.main-without-search {
+  justify-content: flex-end;
 }
 
 // Header
@@ -202,15 +256,20 @@ img {
   }
 }
 
-// Login form
-.login-form {
+#register {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  min-height: 75vh;
+  align-items: center;
 }
 
-// Contact form
+// Custom form rules
+
+.login-form,
+.register-form {
+  padding: 40px 60px;
+}
+
 .contact-form-wrapper {
   display: flex;
   justify-content: center;
@@ -257,12 +316,12 @@ img {
   background-color: #fff;
   position: relative;
   padding: 20px;
-  min-width: 600px;
+  // min-width: 600px;
   max-width: 800px;
   min-height: 500px;
   margin: auto;
-  border: 2px solid $medium-color;
-  box-shadow: -4px 4px 10px #ddd;
+  // border: 2px solid $medium-color;
+  // box-shadow: -4px 4px 10px #ddd;
 
   .dashboard-sidebar {
     position: absolute;
@@ -276,7 +335,7 @@ img {
       text-align: center;
 
       > :first-child {
-        border-top: solid 2px $medium-color;
+        // border-top: solid 2px $medium-color;
         border-top-left-radius: 25px;
       }
 
@@ -286,11 +345,11 @@ img {
 
       .list-item {
         padding: 0.5rem 0.5rem;
-        border-bottom: solid 2px $medium-color;
-        border-left: solid 2px $medium-color;
-        background-color: #eee;
-        border-right: solid 2px $medium-color;
-        box-shadow: -4px 4px 10px #ddd;
+        // border-bottom: solid 2px $medium-color;
+        // border-left: solid 2px $medium-color;
+        background-color: #ddd;
+        // border-right: solid 2px $medium-color;
+        // box-shadow: -4px 4px 10px #ddd;
       }
 
       .router-link-active {
@@ -313,7 +372,6 @@ img {
 .dash-addresses {
   padding: 20px;
   display: grid;
-  grid-template-columns: auto auto;
   justify-content: space-around;
   align-content: space-evenly;
   min-height: 460px;
@@ -324,8 +382,17 @@ img {
   }
 }
 
+.auto-columns-1 {
+  grid-template-columns: auto;
+}
+
+.auto-columns-2 {
+  grid-template-columns: auto auto;
+}
+
 .address-flip {
-  height: 100%;
+  min-width: 250px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -333,8 +400,7 @@ img {
   text-align: center;
 
   &:hover {
-    h1,
-    i {
+    * {
       color: $primary-color;
       transition: 0.5s;
     }
@@ -344,6 +410,12 @@ img {
 .address-form {
   border: none;
   cursor: default;
+  align-items: center;
+  padding: unset;
+
+  input:not([type="checkbox"]) {
+    width: 180px;
+  }
 }
 
 .card-body-address {
@@ -357,12 +429,7 @@ img {
     width: 220px;
   }
 
-  .dash-orders-middle {
-    // margin-left: 30px;
-  }
-
   .dash-orders-right {
-    // align-self: flex-end;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -394,15 +461,22 @@ img {
 
 // Products
 .products {
-  border: 1px solid $medium-color;
+  // border: 1px solid $medium-color;
   padding: 2rem;
   border-radius: 15px;
 }
 
+.products-spinner {
+  padding-top: 100px;
+  height: 100vh;
+}
+
 #products-page {
   display: grid;
-  gap: 1rem;
-  grid-template-areas: "pr-left pr-center pr-center pr-right";
+
+  justify-content: center;
+  gap: 2rem;
+  grid-template-areas: "pr-left pr-center pr-center";
 }
 
 .products-center {
@@ -411,10 +485,6 @@ img {
 
 .products-left {
   grid-area: pr-left;
-}
-
-.products-right {
-  grid-area: pr-right;
 }
 
 .products-nav {
@@ -450,7 +520,7 @@ img {
 }
 
 .products-filter {
-  border: 1px solid $medium-color;
+  // border: 1px solid $medium-color;
   border-radius: 15px;
   padding: 1rem;
   max-width: 200px;
@@ -469,6 +539,9 @@ img {
   justify-content: center;
 }
 
+.products-results {
+}
+
 .product-item {
   display: flex;
   flex-direction: column;
@@ -478,7 +551,7 @@ img {
   .image-container {
     width: 200px;
     height: 250px;
-    padding: 20px;
+    padding: 20px 10px;
     margin-bottom: 15px;
     display: flex;
 
@@ -498,6 +571,9 @@ img {
 
 // Product
 #product {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 2rem;
 }
 
 .product-grid {
@@ -510,7 +586,7 @@ img {
     "product-image product-image product-right"
     "gallery gallery product-right"
     "product-body product-body product-body";
-  gap: 20px;
+  gap: 40px 20px;
 
   .item-title {
     grid-area: title;
@@ -757,8 +833,14 @@ img {
 }
 
 // Basket
+#basket {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+}
+
 .basket-empty {
-  color: $medium-color;
+  color: $grey-50;
   text-align: center;
   padding: 4rem 0;
 
@@ -831,17 +913,23 @@ img {
   display: flex;
   justify-content: center;
 
-  .payment-grand-total {
-  }
-
   .payment-form {
     width: 400px;
     border-color: #ddd;
     padding: 2rem;
     border-radius: 20px;
 
-    input {
-      width: 200px;
+    /* input {
+      width: 100%;
+    } */
+
+    .shipping-toggle {
+      display: flex;
+      margin-bottom: 1rem;
+
+      h5 {
+        margin-left: 1rem;
+      }
     }
 
     > p:last-child {
@@ -857,6 +945,8 @@ img {
   .payment-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
   }
 
   .payment-right {
@@ -872,6 +962,10 @@ img {
   .stripe-logo {
     color: #5469d4;
     font-size: 2rem;
+  }
+
+  .payment-notice {
+    color: $grey-50;
   }
 }
 
@@ -900,9 +994,10 @@ img {
   }
 
   .order-info {
-    border: 1px solid #ddd;
+    // border: 1px solid #ddd;
     padding: 2rem;
     border-radius: 20px;
+    background-color: #fff;
   }
 }
 
@@ -918,288 +1013,19 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    a {
-      color: $grey-50;
-      i {
-        font-size: 1.5rem;
-        margin: 0 1rem;
-
-        &:hover {
-          cursor: pointer;
-          color: $grey-25;
-        }
-      }
+  }
+  a {
+    color: $grey-50;
+    i {
+      font-size: 1.5rem;
+      margin: 0 1rem;
+    }
+    &:hover {
+      cursor: pointer;
+      color: $grey-25;
     }
   }
 }
-
-/* .card-body {
-  button {
-    padding: 0.4rem 1rem;
-  }
-} */
-
-/* // Home Sections
-#home {
-  // Home Section A
-  &-a {
-    .specials {
-      margin-top: 3rem;
-      display: grid;
-      grid-gap: 1rem;
-      grid-template-columns: repeat(4, 1fr);
-
-      .fas {
-        color: $main-color;
-        padding-bottom: 0.4rem;
-      }
-    }
-  }
-
-  // Home Section B
-  &-b {
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-
-      li {
-        line-height: 2;
-
-        &.stats-title {
-          font-size: 1.5rem;
-        }
-
-        &.stats-number {
-          font-size: 2rem;
-          font-weight: bold;
-        }
-      }
-
-      div {
-        padding: 3rem 0;
-
-        &:nth-child(odd) {
-          background: $light-color;
-        }
-
-        &:nth-child(even) {
-          background: $medium-color;
-        }
-      }
-    }
-  }
-
-  // Home Section C
-  &-c {
-    .process {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 1.5rem;
-      text-align: center;
-
-      // process-step
-      &-step {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 28px;
-        background: $main-color;
-        color: set-text-color($main-color);
-        border-radius: 50%;
-        height: 15px;
-        width: 15px;
-        line-height: 15px;
-        padding: 1rem;
-        transition: all 1s;
-      }
-
-      // process-icon
-      &-icon {
-        border-radius: 50%;
-        background: $dark-color;
-        color: set-text-color($dark-color);
-        padding: 2rem;
-        width: 70px;
-        height: 70px;
-        line-height: 70px;
-        text-align: center;
-        position: relative;
-        transition: all 1s;
-
-        &:hover {
-          background: $main-color;
-          width: 90px;
-          height: 90px;
-          line-height: 90px;
-
-          .process-step {
-            background: $dark-color;
-            color: set-text-color($dark-color);
-          }
-        }
-      }
-    }
-  }
-}
-
-// About Sections
-#about {
-  // About A
-  &-a {
-    .about-info {
-      display: grid;
-      grid-template-areas:
-        "bioimage bio bio"
-        "aw1 aw2 aw3";
-      grid-gap: 1.2rem;
-    }
-
-    // Grid Area
-    .bio-image {
-      grid-area: bioimage;
-    }
-
-    .bio {
-      grid-area: bio;
-      border-left: 3px solid $main-color;
-      padding: 0.8rem;
-    }
-
-    .award-1 {
-      grid-area: aw1;
-    }
-
-    .award-2 {
-      grid-area: aw2;
-    }
-
-    .award-3 {
-      grid-area: aw3;
-    }
-
-    .award-1 .fas,
-    .award-2 .fas,
-    .award-3 .fas {
-      color: $main-color;
-      margin: 1rem;
-    }
-  }
-  // About B
-  &-b {
-    .progress {
-      overflow: hidden;
-      height: 20px;
-      background: $medium-color;
-      border-radius: 5px;
-      margin-bottom: 0.6rem;
-
-      div {
-        height: 100%;
-        color: #fff;
-        text-align: center;
-        background: $main-color;
-      }
-    }
-  }
-  // About C
-  &-c {
-    .about-logos {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 2rem;
-
-      img {
-        width: 70%;
-      }
-    }
-  }
-  // About D
-  &-d {
-    .testimonials {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 0.5rem;
-
-      ul {
-        list-style: none;
-        margin-top: 1rem;
-        display: flex;
-        align-items: center;
-      }
-
-      p {
-        border: 1px solid $medium-color;
-        border-radius: 5px;
-        padding: 0.5rem;
-      }
-
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin-right: 0.5rem;
-      }
-    }
-  }
-}
-
-// Contact Page
-#contact {
-  &-a {
-    .text-fields {
-      display: grid;
-      grid-template-areas:
-        "name email"
-        "subject phone"
-        "message message";
-      grid-gap: 1.2rem;
-      margin-bottom: 1.2rem;
-
-      // Grid Areas
-      .name-input {
-        grid-area: name;
-      }
-      .subject-input {
-        grid-area: subject;
-      }
-      .email-input {
-        grid-area: email;
-      }
-      .phone-input {
-        grid-area: phone;
-      }
-      .message-input {
-        grid-area: message;
-        height: 100px;
-      }
-
-      .text-input {
-        padding: 0.5rem 1rem;
-      }
-    }
-
-    button[type="submit"] {
-      width: 50%;
-    }
-  }
-
-  &-b {
-    .contact-info {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      text-align: center;
-    }
-  }
-
-  &-c {
-    h1 {
-      text-align: center;
-      font-size: 4rem;
-    }
-  }
-}
- */
 
 // Spinner
 .lds-spinner {

@@ -1,22 +1,34 @@
 <template>
   <div id="status-bar">
-    <router-link
-      :to="{ name: 'basket' }"
-      v-if="basketItemCount || basketItemCount == 0"
-      ><i class="fas fa-shopping-cart"></i> ( {{ basketItemCount }} / £{{
-        total ? total : "0"
-      }}
-      )</router-link
-    >
-    <router-link :to="{ name: 'dashboard.profile' }" v-if="user"
-      ><i class="fas fa-user"></i> Welcome, {{ user.name[0] }}</router-link
-    >
-    <router-link :to="{ name: 'login' }" v-else
-      ><i class="fas fa-user"></i> Sign in | Register</router-link
-    >
-    <a v-if="user" @click="logout"
-      ><i class="fas fa-sign-out-alt"></i> Logout</a
-    >
+    <div class="status-bar-logo">
+      <img src="http://localhost:3002/storage/logo.png" alt="" />
+    </div>
+    <div class="status-bar-right">
+      <router-link
+        :to="{ name: 'basket' }"
+        :class="[
+          currentPath.includes('basket') ? 'router-link-active-status' : ''
+        ]"
+        v-if="basketItemCount || basketItemCount == 0"
+        ><i class="fas fa-shopping-cart"></i> ( {{ basketItemCount }} / £{{
+          total ? totalFixed : "0"
+        }}
+
+        )
+      </router-link>
+      <router-link
+        :to="{ name: 'dashboard.profile' }"
+        v-if="user"
+        class="profile-link"
+        ><i class="fas fa-user"></i> Welcome, {{ user.name }}</router-link
+      >
+      <a v-if="auth" @click="logout"
+        ><i class="fas fa-sign-out-alt"></i> Logout</a
+      >
+      <router-link :to="{ name: 'login' }" v-else
+        ><i class="fas fa-sign-in-alt"></i> Sign in</router-link
+      >
+    </div>
   </div>
 </template>
 
@@ -26,6 +38,9 @@ import store from "../../store/index";
 
 export default {
   props: {
+    auth: {
+      type: Boolean
+    },
     user: {
       type: Object
     },
@@ -33,7 +48,7 @@ export default {
       type: Array
     },
     total: {
-      type: String
+      type: Number
     }
   },
   mounted() {},
@@ -41,13 +56,26 @@ export default {
   computed: {
     basketItemCount() {
       return this.basket ? Object.keys(this.basket).length : 0;
+    },
+    totalFixed() {
+      return this.total.toFixed(2);
+    },
+    currentPath() {
+      return this.$route.path;
     }
+    /* statusBarStyle() {
+      return this.currentRoute.name === "basket"
+        ? { "border-bottom": "2px solid #1cb7ff;" }
+        : null;
+    } */
   },
   methods: {
     async logout() {
       await store.dispatch("logoutUser");
+      await store.dispatch("emptyBasket", { userId: "Guest" });
+      await store.dispatch("getBasket", this.user.id);
 
-      if (!this.user) {
+      if (!this.auth) {
         this.$router.push({
           name: "login"
         });

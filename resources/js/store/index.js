@@ -9,6 +9,7 @@ import product from "./modules/product";
 import basket from "./modules/basket";
 import order from "./modules/order";
 import logging from "./modules/logging";
+import layout from "./modules/layout";
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     basket,
     category,
     order,
-    logging
+    logging,
+    layout
   }
 });

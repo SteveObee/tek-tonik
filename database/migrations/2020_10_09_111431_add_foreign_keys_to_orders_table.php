@@ -14,7 +14,8 @@ class AddForeignKeysToOrdersTable extends Migration {
 	{
 		Schema::table('orders', function(Blueprint $table)
 		{
-			$table->foreign('address_id', 'fk_orders_addresses1')->references('id')->on('addresses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('billing_id', 'fk_orders_addresses1')->references('id')->on('addresses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('shipping_id', 'fk_orders_addresses2')->references('id')->on('addresses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('ref_order_status_code_id', 'fk_orders_ref_order_status_codes1')->references('id')->on('ref_order_status_codes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('user_id', 'fk_orders_users1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
@@ -31,6 +32,7 @@ class AddForeignKeysToOrdersTable extends Migration {
 		Schema::table('orders', function(Blueprint $table)
 		{
 			$table->dropForeign('fk_orders_addresses1');
+			$table->dropForeign('fk_orders_addresses2');
 			$table->dropForeign('fk_orders_ref_order_status_codes1');
 			$table->dropForeign('fk_orders_users1');
 		});

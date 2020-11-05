@@ -103,7 +103,8 @@ class UsersController extends Controller
       $stripeCharge = $user->charge($request->amount, $request->id);
 
       return response()->json([
-        'success' => true
+        'success' => true,
+        'stripeCharge' => $stripeCharge
       ]);
     } catch (Exception $e) {
       return response($e, 500);

@@ -12,7 +12,7 @@
         'nav-link'
       ]"
       :to="accountTo"
-      >Account</router-link
+      >{{ auth ? "Account" : "Register" }}</router-link
     >
   </nav>
 </template>
@@ -24,11 +24,14 @@ export default {
   props: {
     user: {
       type: Object
+    },
+    auth: {
+      type: Boolean
     }
   },
   computed: {
     accountTo() {
-      return this.user ? { name: "dashboard.profile" } : { name: "register" };
+      return this.auth ? { name: "dashboard.profile" } : { name: "register" };
     },
     currentPath() {
       return this.$route.path;

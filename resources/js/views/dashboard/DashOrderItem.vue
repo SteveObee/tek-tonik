@@ -19,11 +19,13 @@
         <h4>Order details</h4>
         <div class="mb-1">
           <p v-for="item in order.order_items">
-            {{ item.quantity }} x {{ item.name }} @ £{{ item.price_then }}
+            {{ item.quantity }} x {{ item.name }} @ £{{
+              item.price_then.toFixed(2)
+            }}
           </p>
         </div>
         <h4>Total after VAT</h4>
-        <p>£{{ order.total }}</p>
+        <p>£{{ orderTotalFixed }}</p>
       </div>
       <div class="dash-orders-right">
         <div v-on:click="expanded = !expanded" class="card-toggle">
@@ -57,6 +59,7 @@
 
 <script>
 import store from "../../store/index";
+import { messageHandler } from "../../utils/helpers";
 
 export default {
   props: {
@@ -70,6 +73,11 @@ export default {
       expanded: false
     };
   },
+  watch: {
+    order: function(newVal, oldVal) {
+      this.expanded = false;
+    }
+  },
   computed: {
     classObject() {
       return {
@@ -78,13 +86,23 @@ export default {
         "c-success": this.order.status.id === 3,
         "c-danger": this.order.status.id === 4
       };
+    },
+    orderTotalFixed() {
+      return this.order.total.toFixed(2);
     }
   },
   methods: {
     async onCancelClick(e) {
-      await store.dispatch("deleteOrder", { id: e.id, statusCode: 4 });
-      await store.dispatch("getUserOrders");
-      this.expanded = false;
+      await messageHandler("Really cancel Order?", "warning", [
+        {
+          action: "deleteOrder",
+          payload: { id: e.id, statusCode: 4 }
+        },
+        {
+          action: "getUserOrders",
+          payload: null
+        }
+      ]);
     }
   }
 };

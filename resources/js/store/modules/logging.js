@@ -6,7 +6,7 @@ import {
 } from "../mutations/logging";
 
 const state = {
-  errors: [],
+  errors: null,
   messages: []
 };
 

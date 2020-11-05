@@ -14,6 +14,7 @@ export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 // Address types
 export const GET_ADDRESSES = "GET_ADDRESSES";
 export const SET_ADDRESS_LOADING = "SET_ADDRESS_LOADING";
+export const SET_ADDRESSES = "SET_ADDRESSES";
 
 // Product types
 export const GET_PRODUCTS = "GET_PRODUCTS";
@@ -22,6 +23,7 @@ export const SET_IMAGES = "SET_IMAGES";
 export const CLEAR_IMAGES = "CLEAR_IMAGES";
 export const SET_BRANDS = "SET_BRANDS";
 export const SET_PROCESSED_COUNT = "SET_PROCESSED_COUNT";
+export const SET_PRODUCT_LOADING = "SET_PRODUCT_LOADING";
 
 // Basket types
 export const POPULATE_BASKET = "POPULATE_BASKET";

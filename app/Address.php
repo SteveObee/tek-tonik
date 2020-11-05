@@ -18,6 +18,11 @@ class Address extends Model
     return $this->belongsToMany('App\User', 'customer_addresses', 'address_id', 'user_id')->using('App\CustomerAddress')->withPivot(['address_id', 'user_id'])->withTimestamps();
   }
 
+  public function orders()
+  {
+    return $this->hasMany('App\Order', 'shipping_id');
+  }
+
   public function userIdPresent($id)
   {
     return $this->users()->wherePivot('user_id', $id)->select('id');

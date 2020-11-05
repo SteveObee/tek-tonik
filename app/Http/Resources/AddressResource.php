@@ -23,6 +23,7 @@ class AddressResource extends JsonResource
       'county' => $this->county,
       'postcode' => $this->postcode,
       'users' => UserResource::collection($this->whenLoaded('users')),
+      'orders' => OrderResource::collection($this->whenLoaded('orders')),
       'is_shipping' => $this->whenPivotLoaded('customer_addresses', function () {
         return $this->pivot->is_shipping;
       }),

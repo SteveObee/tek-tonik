@@ -24,7 +24,9 @@
 
             <div v-if="message.confirm" class="confirmation">
               <button
-                @click="processTask({ id: message.id, task: message.confirm })"
+                @click="
+                  processTasks({ id: message.id, tasks: message.confirm })
+                "
                 class="btn-warn-clear"
               >
                 Yes
@@ -58,9 +60,11 @@ export default {
     removeMessage(e) {
       store.commit({ type: "DELETE_MESSAGE", id: e.id });
     },
-    processTask(e) {
-      const { action, payload } = e.task;
-      store.dispatch(action, payload);
+    async processTasks(e) {
+      for await (let task of e.tasks) {
+        await store.dispatch(task.action, task.payload);
+      }
+
       store.commit({ type: "DELETE_MESSAGE", id: e.id });
     }
   }

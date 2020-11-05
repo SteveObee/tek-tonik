@@ -23,7 +23,8 @@ class OrdersController extends Controller
       $order = new Order;
 
       $order->user_id = $request->userId;
-      $order->address_id = $request->addressId;
+      $order->shipping_id = $request->shippingId;
+      $order->billing_id = $request->billingId;
       $order->price_total = $request->total;
 
       $order->save();

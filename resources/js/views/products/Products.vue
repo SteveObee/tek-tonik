@@ -96,27 +96,37 @@ export default {
       type: Array
     }
   },
+  watch: {
+    innerWidth: function(newVal, oldVal) {}
+  },
   data() {
     return {
       page: 1,
-      perPage: 4
+      perPage: 4,
+      innerWidth: window.innerHeight
     };
   },
   name: "Products",
   components: {
     ProductItem
   },
+  created() {
+    window.addEventListener("resize", this.onResize);
+  },
+  mounted() {
+    this.onResize();
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.onResize);
+  },
   computed: {
     ...mapState({
       searchQuery: state => state.product.searchQuery
     }),
-    productsPerPage: function() {
-      return this.recursiveIds.length > 1 ? 3 : this.perPage;
-    },
     processedProducts: function() {
       return this.processProducts(
         this.page,
-        this.productsPerPage,
+        this.perPage,
         this.filteredBrands,
         this.products
       );
@@ -126,7 +136,7 @@ export default {
     }
   },
   methods: {
-    processProducts(toPage, productsPerPage, filteredBrands, products) {
+    processProducts(toPage, perPage, filteredBrands, products) {
       if (products) {
         // Filter by category
         let categoryProducts = [];
@@ -150,7 +160,7 @@ export default {
           });
         }
 
-        return paginateCollection(sortedProducts, productsPerPage, toPage);
+        return paginateCollection(sortedProducts, perPage, toPage);
       }
     },
     async prev() {
@@ -173,6 +183,23 @@ export default {
       });
 
       return categoryName;
+    },
+    onResize(e) {
+      this.innerWidth = window.innerWidth;
+
+      if (window.innerWidth <= 950) {
+        this.perPage = 1;
+        this.page = 1;
+      } else if (window.innerWidth <= 1100) {
+        this.perPage = 2;
+        this.page = 1;
+      } else if (window.innerWidth <= 1300) {
+        this.perPage = 3;
+        this.page = 1;
+      } else {
+        this.perPage = 4;
+        this.page = 1;
+      }
     }
   }
 };

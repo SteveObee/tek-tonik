@@ -15,7 +15,7 @@ export const getUserAddresses = async ({ commit }, page) => {
   try {
     const res = await api.user({ params });
 
-    commit({ type: GET_ADDRESSES, data: res.data });
+    commit({ type: GET_ADDRESSES, addresses: res.data });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
@@ -24,8 +24,9 @@ export const getUserAddresses = async ({ commit }, page) => {
 export const getAllUserAddresses = async ({ commit }) => {
   try {
     const res = await api.all();
+    const addresses = res.data.length > 0 ? res.data : null;
 
-    commit({ type: GET_ADDRESSES, data: res.data });
+    commit({ type: GET_ADDRESSES, addresses });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
@@ -33,17 +34,28 @@ export const getAllUserAddresses = async ({ commit }) => {
 
 export const addAddress = async ({ commit }, payload) => {
   try {
+    const {
+      address_line_1,
+      address_line_2,
+      county,
+      city,
+      postcode,
+      is_shipping,
+      is_billing
+    } = payload;
+
     await api.add({
-      address_line_1: payload.address_line_1,
-      address_line_2: payload.address_line_2,
-      county: payload.county,
-      city: payload.city,
-      postcode: payload.postcode,
-      is_shipping: payload.is_shipping,
-      is_billing: payload.is_billing
+      address_line_1,
+      address_line_2,
+      county,
+      city,
+      postcode,
+      is_shipping,
+      is_billing
     });
 
     messageHandler("Address created", "success");
+    commit({ type: LOG_ERRORS, errors: null });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
@@ -66,7 +78,7 @@ export const updateAddress = async ({ commit }, payload) => {
     await api.delete(payload.id);
 
     // Add address or attach/re-attach user to address
-    await api.add({
+    const res = await api.add({
       address_line_1: payload.address_line_1,
       address_line_2: payload.address_line_2,
       county: payload.county,
@@ -77,6 +89,9 @@ export const updateAddress = async ({ commit }, payload) => {
     });
 
     messageHandler("Address updated", "success");
+    commit({ type: LOG_ERRORS, errors: null });
+
+    return res.data;
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err });
   }

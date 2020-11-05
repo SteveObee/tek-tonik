@@ -1,18 +1,22 @@
 <template>
   <div class="menu-container">
-    <div
-      :style="indent"
-      @click="selectCategory({ id, name })"
-      :class="iconClasses"
-    >
+    <div :style="indent" :class="iconClasses">
       <i
-        v-if="sub_categories.length > 0"
+        v-if="sub_categories && sub_categories.length > 0"
         @click="toggleChildren()"
         class="menu-item fa"
         :class="iconClasses"
       ></i>
-      <p v-if="id === selectedCategory.id" class="d-ib c-primary">{{ name }}</p>
-      <p v-else class="d-ib">{{ name }}</p>
+      <p
+        v-if="id === selectedCategory.id"
+        @click="selectCategory({ id, name })"
+        class="d-ib c-primary"
+      >
+        {{ name }}
+      </p>
+      <p v-else @click="selectCategory({ id, name })" class="d-ib">
+        {{ name }}
+      </p>
     </div>
 
     <Menu
@@ -44,7 +48,8 @@ export default {
   },
   computed: {
     ...mapState({
-      selectedCategory: state => state.category.selectedCategory
+      selectedCategory: state => state.category.selectedCategory,
+      recursiveIds: state => state.category.recursiveIds
     }),
     indent() {
       return { transform: `translate(${this.depth * 25}px)` };
@@ -66,6 +71,12 @@ export default {
     async selectCategory(e) {
       await store.dispatch("setSelectedCategory", { id: e.id, name: e.name });
       await store.dispatch("getRecursiveCategoryIds", e.id);
+
+      if (this.recursiveIds.length > 1) {
+        await store.dispatch("getAllProducts", {
+          category_ids: this.recursiveIds
+        });
+      }
     }
   }
 };

@@ -27,11 +27,11 @@
       <div style="margin: 2rem 0;">
         <h4 style="margin: 2rem 0;">Delivering to:</h4>
         <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->user->name}}</p>
-        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->address->address_line_1}}</p>
-        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->address->address_line_2}}</p>
-        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->address->city}}</p>
-        <p style="margin: 0; padding: 0; line-height: 1.5rem;"> {{$order->address->county}}</p>
-        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->address->postcode}}</p>
+        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->shippingAddress->address_line_1}}</p>
+        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->shippingAddress->address_line_2}}</p>
+        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->shippingAddress->city}}</p>
+        <p style="margin: 0; padding: 0; line-height: 1.5rem;"> {{$order->shippingAddress->county}}</p>
+        <p style="margin: 0; padding: 0; line-height: 1.5rem;">{{$order->shippingAddress->postcode}}</p>
       </div>
     </div>
   </div>

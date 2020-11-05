@@ -9,5 +9,5 @@ export const EMPTY_BASKET = state => {
 };
 
 export const SET_TOTAL = (state, payload) => {
-  state.total = payload.total.toFixed(2);
+  state.total = payload.total;
 };

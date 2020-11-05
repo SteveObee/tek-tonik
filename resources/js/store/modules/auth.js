@@ -13,7 +13,7 @@ const state = {
   loading: true,
   saving: false,
   isAuthenticated: null,
-  user: null,
+  user: { id: "Guest", name: "Guest" },
   errors: null
 };
 

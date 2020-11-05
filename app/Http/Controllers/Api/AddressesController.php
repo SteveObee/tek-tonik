@@ -99,6 +99,7 @@ class AddressesController extends Controller
   public function show(Address $address)
   {
     $address->users;
+    $address->orders;
 
     return new AddressResource($address);
   }
@@ -141,8 +142,9 @@ class AddressesController extends Controller
     $address->users()->detach(Auth::id());
 
     $remainingUsers = $address->users;
+    $attachedOrders = $address->orders;
 
-    if (!count($remainingUsers)) {
+    if (!count($remainingUsers) && !count($attachedOrders)) {
       $address->delete();
     }
 

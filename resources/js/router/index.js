@@ -39,10 +39,10 @@ const router = new Router({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   if (to.name !== "login" && !store.state.auth.isAuthenticated) {
     next({ name: "login" });
   } else next();
-});
+}); */
 
 export default router;

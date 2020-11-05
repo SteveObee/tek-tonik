@@ -20,7 +20,7 @@ export const REGISTER_USER = state => {
 
 export const LOGOUT_USER = state => {
   state.isAuthenticated = false;
-  state.user = null;
+  state.user = { id: "Guest", name: "Guest" };
 };
 
 export const LOAD_USER = (state, payload) => {

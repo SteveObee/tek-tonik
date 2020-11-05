@@ -12,6 +12,7 @@ export default [
     path: "/register",
     name: "register",
     title: "Register",
-    component: Register
+    component: Register,
+    props: true
   }
 ];

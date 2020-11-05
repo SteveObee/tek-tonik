@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div v-if="message" class="message mb-1">
-      <p>{{ message }}</p>
-    </div>
-
     <div v-if="orders.length > 0" class="dash-orders">
       <div v-for="order in orders">
         <div>
@@ -32,19 +28,13 @@ export default {
       });
     }
   },
-  // data() {
-  //   return {
-  //     message: "Order removed"
-  //   };
-  // },
   components: {
     DashOrderItem
   },
   computed: {
     ...mapState({
       loading: state => state.order.loading,
-      orders: state => state.order.orders,
-      message: state => state.order.message
+      orders: state => state.order.orders
     })
   }
 };

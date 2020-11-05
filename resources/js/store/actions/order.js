@@ -24,11 +24,10 @@ export const processTransaction = async ({ commit }, payload) => {
 
     const res = await api.charge(payload);
 
-    if (res.data.success) {
-      commit({ type: SET_PROCESSING, processing: false });
-    }
+    return res;
   } catch (err) {
-    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+    commit({ type: LOG_ERRORS, errors: [err.response.data.message] });
+    commit({ type: SET_PROCESSING, processing: false });
   }
 };
 
@@ -44,10 +43,12 @@ export const getUserOrders = async ({ commit }) => {
 
 export const createOrder = async ({ commit }, payload) => {
   try {
+    const { userId, shippingId, billingId, total } = payload;
     const res = await api.create({
-      userId: payload.userId,
-      addressId: payload.addressId,
-      total: payload.total
+      userId,
+      shippingId,
+      billingId,
+      total
     });
 
     return res.data.orderId;
@@ -61,8 +62,6 @@ export const deleteOrder = async ({ commit }, payload) => {
     const res = await api.update(payload.id, {
       status_code: payload.statusCode
     });
-
-    console.log(res);
 
     commit({ type: SET_MESSAGE, message: "Order Cancelled" });
   } catch (err) {

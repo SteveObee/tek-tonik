@@ -1,5 +1,5 @@
 export const GET_ADDRESSES = (state, payload) => {
-  state.addresses = payload.data;
+  state.addresses = payload.addresses;
   state.loading = false;
 };
 

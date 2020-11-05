@@ -17,12 +17,14 @@ import {
   CLEAR_IMAGES,
   SET_BRANDS,
   SET_SEARCH_QUERY,
-  SET_SEARCHING
+  SET_SEARCHING,
+  SET_PRODUCT_LOADING
 } from "../mutations/product";
 
 const state = {
   products: null,
   product: null,
+  productItemId: 4,
   categories: null,
   images: null,
   productBrands: null,
@@ -52,7 +54,8 @@ const mutations = {
   CLEAR_IMAGES,
   SET_SEARCHING,
   SET_BRANDS,
-  SET_SEARCH_QUERY
+  SET_SEARCH_QUERY,
+  SET_PRODUCT_LOADING
 };
 
 export default {

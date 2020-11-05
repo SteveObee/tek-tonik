@@ -18,7 +18,7 @@ class OrderResource extends JsonResource
     return [
       'id' => $this->id,
       'order_items' => OrderItemResource::collection($this->orderItems),
-      'address' => new AddressResource($this->address),
+      'address' => new AddressResource($this->shippingAddress),
       'status' => $this->status,
       'total' => $this->price_total,
       'created_at' => $this->created_at->format('d-m-Y')

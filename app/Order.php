@@ -18,9 +18,9 @@ class Order extends Model
     return $this->orderItems()->delete();
   }
 
-  public function address()
+  public function shippingAddress()
   {
-    return $this->belongsTo('App\Address');
+    return $this->belongsTo('App\Address', 'shipping_id');
   }
 
   public function status()

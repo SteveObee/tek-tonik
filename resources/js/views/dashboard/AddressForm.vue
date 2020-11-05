@@ -1,18 +1,20 @@
 <template>
   <div class="card-body">
     <form @submit.prevent="onSubmit($event)" class="form address-form">
-      <p
-        v-if="!address"
-        class="c-primary cu-point"
-        v-on:click="toggleEditing()"
-      >
-        <i class="fas fa-arrow-circle-left mb-2 c-primary cu-pointer"></i>
-        Discard changes
-      </p>
-      <p v-else class="c-primary cu-point" v-on:click="toggleEditing()">
-        <i class="fas fa-arrow-circle-left mb-2 c-primary cu-pointer"></i>
-        Discard changes
-      </p>
+      <div v-if="dashboard">
+        <p
+          v-if="!address"
+          class="c-primary cu-point"
+          v-on:click="toggleEditing()"
+        >
+          <i class="fas fa-arrow-circle-left mb-2 c-primary cu-pointer"></i>
+          Discard changes
+        </p>
+        <p v-else class="c-primary cu-point" v-on:click="toggleEditing()">
+          <i class="fas fa-arrow-circle-left mb-2 c-primary cu-pointer"></i>
+          Discard changes
+        </p>
+      </div>
       <div class="form-control">
         <label class="">Address line 1</label>
         <input type="text" v-model="address_line_1" />
@@ -48,22 +50,28 @@
           <small>{{ errors.postcode[0] }}</small>
         </div>
       </div>
-      <div class="form-control-chkbox">
-        <label for="shipping">Shipping</label>
-        <input type="checkbox" v-model="is_shipping" />
-        <label for="billing">Billing</label>
-        <input type="checkbox" v-model="is_billing" />
+
+      <div v-if="dashboard" class="form-control-chkbox">
+        <div class="chkbox-group">
+          <label for="shipping">Shipping</label>
+          <input type="checkbox" v-model="is_shipping" />
+        </div>
+        <div class="chkbox-group">
+          <label for="billing">Billing</label>
+          <input type="checkbox" v-model="is_billing" />
+        </div>
       </div>
+
       <button
         v-if="creating"
         type="submit"
         class="btn-primary"
         :disabled="saving"
       >
-        Submit
+        Save
       </button>
       <button v-else type="submit" class="btn-primary" :disabled="saving">
-        Update
+        {{ dashboard ? "Update" : "Save" }}
       </button>
     </form>
   </div>
@@ -73,7 +81,24 @@ import store from "../../store/index";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  props: ["errors", "creating", "address", "editing", "editingId"],
+  props: {
+    creating: Boolean,
+    address: Object,
+    editing: Boolean,
+    editingId: Number,
+    dashboard: {
+      type: Boolean,
+      default: true
+    },
+    shipping: {
+      type: Boolean,
+      default: false
+    },
+    billing: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       address_line_1: this.address ? this.address.address_line_1 : "",
@@ -86,19 +111,42 @@ export default {
       saving: false
     };
   },
+  computed: {
+    ...mapState({
+      errors: state => state.logging.errors
+    })
+  },
   methods: {
     async onSubmit(event) {
       this.saving = true;
 
+      const {
+        address_line_1,
+        address_line_2,
+        county,
+        city,
+        postcode,
+        is_shipping,
+        is_billing
+      } = this;
+
       const newAddress = {
-        address_line_1: this.address_line_1,
-        address_line_2: this.address_line_2,
-        county: this.county,
-        city: this.city,
-        postcode: this.postcode,
-        is_shipping: this.is_shipping,
-        is_billing: this.is_billing
+        address_line_1,
+        address_line_2,
+        county,
+        city,
+        postcode,
+        is_shipping,
+        is_billing
       };
+
+      if (this.shipping) {
+        newAddress.is_shipping = true;
+        newAddress.is_billing = false;
+      } else if (this.billing) {
+        newAddress.is_shipping = false;
+        newAddress.is_billing = true;
+      }
 
       if (this.creating) {
         await store.dispatch("addAddress", newAddress);
@@ -110,9 +158,11 @@ export default {
 
       this.saving = false;
 
-      if (!this.errors) {
+      if (!this.errors && this.dashboard) {
         this.toggleEditing();
         await store.dispatch("getUserAddresses");
+      } else if (!this.errors) {
+        await store.dispatch("getAllUserAddresses");
       }
     },
 
