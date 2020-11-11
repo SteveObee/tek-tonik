@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Ecomm app</title>
+  <title>Tek Tonik</title>
   <link rel="stylesheet" href="{{mix('css/main.css')}}">
   <script src="https://kit.fontawesome.com/969ad30f5b.js" crossorigin="anonymous"></script>
 
