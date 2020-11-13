@@ -29921,16 +29921,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   user: function user(params) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3002/api/users/addresses", params);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/addresses", params);
   },
   all: function all() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3002/api/users/addresses/all");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/addresses/all");
   },
   add: function add(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3002/api/addresses", data);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/addresses", data);
   },
   "delete": function _delete(id) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("http://localhost:3002/api/addresses/".concat(id));
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/addresses/".concat(id));
   }
 });
 
@@ -29985,19 +29985,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   csrf: function csrf() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3002/sanctum/csrf-cookie");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/sanctum/csrf-cookie");
   },
   login: function login(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3002/login", data);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", data);
   },
   logout: function logout() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3002/logout");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/logout");
   },
   register: function register(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3002/register", data);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/register", data);
   },
   load: function load() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3002/api/user");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user");
   }
 });
 
@@ -30072,10 +30072,10 @@ __webpack_require__.r(__webpack_exports__);
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/charge", data);
   },
   create: function create(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/orders/create", data);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/orders/create", data);
   },
   add: function add(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/orders/additem", data);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/orders/additem", data);
   },
   update: function update(id, data) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/orders/".concat(id), data);

@@ -2,18 +2,18 @@ import axios from "axios";
 
 export default {
   csrf() {
-    return axios.get("http://localhost:3002/sanctum/csrf-cookie");
+    return axios.get("/sanctum/csrf-cookie");
   },
   login(data) {
-    return axios.post("http://localhost:3002/login", data);
+    return axios.post("/login", data);
   },
   logout() {
-    return axios.post("http://localhost:3002/logout");
+    return axios.post("/logout");
   },
   register(data) {
-    return axios.post("http://localhost:3002/register", data);
+    return axios.post("/register", data);
   },
   load() {
-    return axios.get("http://localhost:3002/api/user");
+    return axios.get("/api/user");
   }
 };
