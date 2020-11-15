@@ -1,8 +1,8 @@
 <template>
   <div id="status-bar">
-    <div class="status-bar-logo">
-      <img src="http://localhost:3002/storage/logo.png" alt="" />
-    </div>
+    <router-link class="status-bar-logo" :to="{ name: 'products.index' }">
+      <img src="/storage/logo.png" alt="" />
+    </router-link>
     <div class="status-bar-right">
       <router-link
         :to="{ name: 'basket' }"

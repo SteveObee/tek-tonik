@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
         'supplier_id' => 1,
         'brand_id' => 1,
         'model' => "A{$productCount}000",
-        'thumbnail' => 'http://localhost:3002/storage/sm-mock.jpg',
+        'thumbnail' => '/storage/sm-mock.jpg',
         'category_id' => 4,
         'created_at' => $date,
         'updated_at' => $date
@@ -44,7 +44,7 @@ class ProductSeeder extends Seeder
       factory(App\Image::class)->create([
         'product_id' => $product->id,
         'sort_order' => 1,
-        'url' => "http://localhost:3002/storage/sm-mock_400x400.jpg"
+        'url' => "/storage/sm-mock_400x400.jpg"
       ]);
 
       for ($imgCount = 2; $imgCount <= 8; $imgCount++) {
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
         'supplier_id' => 1,
         'brand_id' => 2,
         'model' => "StyleIte {$productCount}",
-        'thumbnail' => 'http://localhost:3002/storage/tab-mock_300x300.jpg',
+        'thumbnail' => '/storage/tab-mock_300x300.jpg',
         'category_id' => 5,
         'created_at' => $date,
         'updated_at' => $date
@@ -86,7 +86,7 @@ class ProductSeeder extends Seeder
       factory(App\Image::class)->create([
         'product_id' => $product->id,
         'sort_order' => 1,
-        'url' => "http://localhost:3002/storage/tab-mock_400x400.jpg"
+        'url' => "/storage/tab-mock_400x400.jpg"
       ]);
 
       for ($imgCount = 2; $imgCount <= 8; $imgCount++) {

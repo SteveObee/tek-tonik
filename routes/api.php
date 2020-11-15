@@ -23,6 +23,10 @@ Route::get('/user', function (Request $request) {
   return $request->user();
 });
 
+Route::get('/app/url', function () {
+  return env('APP_URL', false);
+});
+
 Route::namespace('Api')->group(function () {
   Route::post('/users/token', 'UsersController@getToken');
 

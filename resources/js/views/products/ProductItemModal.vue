@@ -1,5 +1,5 @@
 <template>
-  <form class="form-borderless t-center">
+  <form class="form-borderless modal-form t-center">
     <div class="t-center mb-2">
       <h3>{{ fullName }}</h3>
     </div>
