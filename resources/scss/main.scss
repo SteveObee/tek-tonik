@@ -188,7 +188,7 @@ img {
   .search-bar {
     border: 1px solid $medium-color;
     border-radius: 15px;
-    padding: 3px;
+    padding: 3px 3px 3px 10px;
 
     input {
       border: none;
@@ -475,7 +475,7 @@ img {
 #products-page {
   display: grid;
 
-  justify-content: center;
+  justify-content: space-between;
   gap: 2rem;
   grid-template-areas: "pr-left pr-center pr-center";
 }
@@ -485,6 +485,7 @@ img {
 }
 
 .products-left {
+  margin-left: 2rem;
   grid-area: pr-left;
 }
 

@@ -1,6 +1,11 @@
 <template>
   <div class="search-bar">
     <i v-if="searching" class="fas fa-cog rotating"></i>
+    <i
+      v-else-if="searchField"
+      class="fas fa-times cu-point"
+      @click="clearSearch()"
+    ></i>
     <i v-else class="fas fa-search"></i>
     <input
       type="text"
@@ -22,6 +27,9 @@ export default {
       searchField: null
     };
   },
+  mounted() {
+    this.searchField = this.searchQuery;
+  },
   watch: {
     searchField: debounce(function(newVal) {
       store.dispatch("setSearchQuery", newVal);
@@ -30,12 +38,17 @@ export default {
   computed: {
     ...mapState({
       searching: state => state.product.searching,
-      selectedCategory: state => state.category.selectedCategory
+      selectedCategory: state => state.category.selectedCategory,
+      searchQuery: state => state.product.searchQuery
     })
   },
   methods: {
     onInput() {
       store.dispatch("setSearching", true);
+    },
+    clearSearch() {
+      this.searchField = null;
+      store.dispatch("setSearchQuery", null);
     }
   }
 };
