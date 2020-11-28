@@ -16,7 +16,7 @@ import store from "../store/index";
 Vue.use(Router);
 
 const baseRoutes = [
-  { path: "/", redirect: "/dashboard/profile" },
+  { path: "/", redirect: "/products" },
   { path: "/404", name: "404", component: NotFound },
   {
     path: "*",
@@ -38,11 +38,5 @@ const router = new Router({
   mode: "history",
   routes
 });
-
-/* router.beforeEach((to, from, next) => {
-  if (to.name !== "login" && !store.state.auth.isAuthenticated) {
-    next({ name: "login" });
-  } else next();
-}); */
 
 export default router;
