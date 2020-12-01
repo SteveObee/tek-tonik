@@ -89,13 +89,17 @@ export default {
       await this.resetPassword({ email, password, passwordConfirm, token });
 
       if (!this.errors) {
-        await this.loginUser({ email, password });
+        /* await this.loginUser({ email, password });
         await store.commit({ type: "EMPTY_BASKET" });
         await store.dispatch("loadUser");
-        await store.dispatch("getBasket", this.user.id);
+        await store.dispatch("getBasket", this.user.id); */
+
+        /* this.$router.push({
+          name: "products.index"
+        }); */
 
         this.$router.push({
-          name: "products.index"
+          name: "login"
         });
       }
     }
