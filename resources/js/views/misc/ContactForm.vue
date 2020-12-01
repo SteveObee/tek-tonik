@@ -1,6 +1,6 @@
 <template>
   <div id="contact">
-    <h2 class="section-title mb-2">Contact Us</h2>
+    <h1 class="mb-2 text-center"><i class="fas fa-envelope"></i> Contact Us</h1>
     <p class="text-center mb-2">
       Please use the form below to contact us with any queries you have.
       <br />

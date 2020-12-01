@@ -12,6 +12,7 @@ import {
 } from "./types";
 
 import api from "../../api/auth";
+import { messageHandler } from "../../utils/helpers";
 
 export const loginUser = async ({ commit }, payload) => {
   try {
@@ -67,6 +68,24 @@ export const registerUser = async ({ commit }, payload) => {
     });
 
     commit({ type: REGISTER_USER });
+    commit({ type: LOG_ERRORS, errors: null });
+  } catch (err) {
+    commit({ type: LOG_ERRORS, errors: err.response.data.message });
+  }
+};
+
+export const resetPassword = async ({ commit }, payload) => {
+  try {
+    const { email, password, passwordConfirm, token } = payload;
+
+    const res = await api.reset({
+      email,
+      password,
+      password_confirmation: passwordConfirm,
+      token
+    });
+
+    messageHandler(res.data.message, "success");
     commit({ type: LOG_ERRORS, errors: null });
   } catch (err) {
     commit({ type: LOG_ERRORS, errors: err.response.data.message });

@@ -15,5 +15,8 @@ export default {
   },
   load() {
     return axios.get("/api/user");
+  },
+  reset(data) {
+    return axios.post("/password/reset", data);
   }
 };

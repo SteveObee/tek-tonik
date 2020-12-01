@@ -1,4 +1,10 @@
-import { loginUser, loadUser, logoutUser, registerUser } from "../actions/auth";
+import {
+  loginUser,
+  loadUser,
+  logoutUser,
+  registerUser,
+  resetPassword
+} from "../actions/auth";
 import {
   LOGIN_USER,
   LOAD_USER,
@@ -27,7 +33,13 @@ const mutations = {
   SET_AUTHENTICATED
 };
 
-const actions = { loginUser, loadUser, logoutUser, registerUser };
+const actions = {
+  loginUser,
+  loadUser,
+  logoutUser,
+  registerUser,
+  resetPassword
+};
 
 export default {
   state,
