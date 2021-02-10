@@ -1,4 +1,4 @@
-const mix = require("laravel-mix");
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,7 +12,7 @@ const mix = require("laravel-mix");
  */
 
 mix
-  .js("resources/js/app.js", "public/js")
-  .sass("resources/scss/main.scss", "public/css");
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/scss/main.scss', 'public/css')
 
-mix.browserSync("tek-tonik.local");
+mix.browserSync({ proxy: 'localhost:8000', open: false })
