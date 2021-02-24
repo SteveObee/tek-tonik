@@ -104,100 +104,100 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import store from "../../store/index";
-import NavButton from "../layout/NavButton";
+import { mapState, mapActions } from 'vuex'
+import store from '../../store/index'
+import NavButton from '../layout/NavButton'
 
 export default {
   components: {
     NavButton
   },
-  data() {
+  data () {
     return {
       address: null,
-      mainImage: "",
-      color: "",
-      activeColor: "",
+      mainImage: '',
+      color: '',
+      activeColor: '',
       quantity: 1,
       added: false
-    };
-  },
-  async beforeRouteEnter(to, from, next) {
-    try {
-      await store.dispatch("getProduct", to.params.id);
-
-      await store.dispatch("getImages", { id: to.params.id, page: 1 });
-      next(vm => {
-        vm.mainImage = vm.images.data[0].url;
-        vm.color = vm.product.colors[0].value;
-        vm.activeColor = vm.product.colors[0].id;
-      });
-    } catch (e) {
-      next({
-        name: "products.index"
-      });
     }
   },
-  async mounted() {
+  async beforeRouteEnter (to, from, next) {
+    try {
+      await store.dispatch('getProduct', to.params.id)
+
+      await store.dispatch('getImages', { id: to.params.id, page: 1 })
+      next(vm => {
+        vm.mainImage = vm.images.data[0].url
+        vm.color = vm.product.colors[0].value
+        vm.activeColor = vm.product.colors[0].id
+      })
+    } catch (e) {
+      next({
+        name: 'products.index'
+      })
+    }
+  },
+  async mounted () {
     if (this.auth) {
-      await store.dispatch("getAllUserAddresses");
+      await store.dispatch('getAllUserAddresses')
     }
 
     if (this.shippingAddresses) {
-      this.address = this.shippingAddresses[0];
+      this.address = this.shippingAddresses[0]
     }
   },
   methods: {
     ...mapActions([
-      "getProduct",
-      "getImages",
-      "getAllUserAddresses",
-      "addToBasket"
+      'getProduct',
+      'getImages',
+      'getAllUserAddresses',
+      'addToBasket'
     ]),
 
-    async prevPage() {
-      const prevPageId = this.images.meta.current_page - 1;
+    async prevPage () {
+      const prevPageId = this.images.meta.current_page - 1
 
-      await store.dispatch("getImages", {
+      await store.dispatch('getImages', {
         id: this.product.id,
         page: prevPageId
-      });
+      })
     },
-    async nextPage() {
-      const nextPageId = this.images.meta.current_page + 1;
+    async nextPage () {
+      const nextPageId = this.images.meta.current_page + 1
 
-      await store.dispatch("getImages", {
+      await store.dispatch('getImages', {
         id: this.product.id,
         page: nextPageId
-      });
+      })
     },
-    setMainImage(url) {
-      this.mainImage = url;
+    setMainImage (url) {
+      this.mainImage = url
     },
-    setColor(value, id) {
-      this.color = value;
-      this.activeColor = id;
+    setColor (value, id) {
+      this.color = value
+      this.activeColor = id
     },
-    incQuantity() {
+    incQuantity () {
       if (this.quantity < this.product.stock) {
-        this.quantity += 1;
+        this.quantity += 1
       }
     },
-    decQuantity() {
+    decQuantity () {
       if (this.quantity > 1) {
-        this.quantity -= 1;
+        this.quantity -= 1
       }
     },
-    async addToBasket() {
-      this.added = true;
+    async addToBasket () {
+      this.added = true
 
       setTimeout(() => {
-        this.added = false;
-      }, 2000);
+        this.added = false
+      }, 2000)
 
       const sumTotal = parseFloat(
         (this.product.price * this.quantity).toFixed(2)
-      );
+      )
 
       const item = {
         userId: this.user.id,
@@ -211,10 +211,10 @@ export default {
         color: this.color,
         price: this.product.price,
         total: sumTotal
-      };
+      }
 
-      await store.dispatch("addToBasket", item);
-      await store.dispatch("getBasket", this.user.id);
+      await store.dispatch('addToBasket', item)
+      await store.dispatch('getBasket', this.user.id)
     }
   },
   computed: {
@@ -226,28 +226,28 @@ export default {
       addresses: state => state.address.addresses,
       basket: state => state.basket.basket
     }),
-    shippingAddresses() {
+    shippingAddresses () {
       if (this.addresses) {
-        let newShippingAddresses = [];
+        const newShippingAddresses = []
 
         this.addresses.forEach(address => {
-          address.is_shipping === 1 && newShippingAddresses.push(address);
-        });
+          address.is_shipping === 1 && newShippingAddresses.push(address)
+        })
 
         if (newShippingAddresses.length > 0) {
-          this.shippingId = newShippingAddresses[0].id;
+          this.shippingId = newShippingAddresses[0].id
         }
 
-        return newShippingAddresses.length > 0 ? newShippingAddresses : null;
+        return newShippingAddresses.length > 0 ? newShippingAddresses : null
       }
     },
-    stockClass() {
+    stockClass () {
       return this.product.stock === 0
-        ? "c-danger"
+        ? 'c-danger'
         : this.product.stock <= 10
-        ? "c-warning"
-        : "c-success";
+          ? 'c-warning'
+          : 'c-success'
     }
   }
-};
+}
 </script>
