@@ -17,6 +17,7 @@ import { messageHandler } from "../../utils/helpers";
 export const loginUser = async ({ commit }, payload) => {
   try {
     await api.csrf();
+
     const res = await api.login({
       email: payload.email,
       password: payload.password
@@ -54,6 +55,7 @@ export const loadUser = async ({ commit }) => {
 
     commit({ type: SET_LOADING, loading: false });
   } catch (err) {
+    commit({ type: SET_LOADING, loading: false });
     commit({ type: LOG_ERRORS, errors: err.response.data.message });
   }
 };
