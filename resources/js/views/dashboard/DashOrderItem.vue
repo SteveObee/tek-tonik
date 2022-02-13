@@ -24,7 +24,7 @@
             }}
           </p>
         </div>
-        <h4>Total after VAT</h4>
+        <h4>Total inc VAT</h4>
         <p>£{{ orderTotalFixed }}</p>
       </div>
       <div class="dash-orders-right">
