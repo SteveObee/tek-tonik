@@ -1,16 +1,20 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Address;
-use Faker\Generator as Faker;
 
-$factory->define(Address::class, function (Faker $faker) {
-  return [
-    'address_line_1' => $faker->streetAddress,
-    'address_line_2' => $faker->secondaryAddress,
-    'city' => $faker->city,
-    'county' => $faker->state,
-    'postcode' => $faker->postcode
-  ];
-});
+class AddressFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'address_line_1' => $this->faker->streetAddress,
+            'address_line_2' => $this->faker->secondaryAddress,
+            'city' => $this->faker->city,
+            'county' => $this->faker->state,
+            'postcode' => $this->faker->postcode
+          ];
+    }
+}
